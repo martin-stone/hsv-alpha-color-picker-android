@@ -4,12 +4,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DrawFilter;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
@@ -21,7 +18,7 @@ public class HueSatView extends View {
 	private final Path pointerPath;
 	private int w;
 	private int h;
-	private Path border;
+	private Path borderPath;
 	private Bitmap bitmap;
 	private PointF pointer = new PointF();
 	private Paint pointerPaint;
@@ -68,11 +65,12 @@ public class HueSatView extends View {
 		//super.onSizeChanged(w, h, oldw, oldh);
 		this.w = w;
 		this.h = h;
-		border = new Path();
-		border.moveTo(w, 0);
-		border.lineTo(w, h);
-		border.lineTo(0, h);
-		border.addArc(new RectF(0, 0, 2 * w, 2 * h), 180, 270);
+		borderPath = new Path();
+		borderPath.moveTo(w, 0);
+		borderPath.lineTo(w, h);
+		borderPath.lineTo(0, h);
+		borderPath.addArc(new RectF(0, 0, 2 * w, 2 * h), 180, 270);
+		borderPath.close();
 
 		final int scale = 2;
 		final int radius = Math.min(w, h) / scale;
@@ -112,7 +110,7 @@ public class HueSatView extends View {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		canvas.drawBitmap(bitmap, null, new Rect(0, 0, w, h), null);
-		canvas.drawPath(border, borderPaint);
+		canvas.drawPath(borderPath, borderPaint);
 
 		canvas.save(Canvas.MATRIX_SAVE_FLAG);
 		canvas.translate(pointer.x, pointer.y);
