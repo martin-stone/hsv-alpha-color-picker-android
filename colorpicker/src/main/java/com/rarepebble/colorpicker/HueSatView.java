@@ -14,6 +14,12 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class HueSatView extends View {
+
+	public interface HueSatListener {
+		void onHueSatChanged(float hue, float sat);
+	}
+
+	private HueSatListener listener;
 	private final Paint borderPaint;
 	private final Path pointerPath;
 	private int w;
@@ -52,6 +58,10 @@ public class HueSatView extends View {
 		//pointer.set();
 	}
 
+	public void setChangeListener(HueSatListener listener) {
+		this.listener = listener;
+	}
+
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		int w = MeasureSpec.getSize(widthMeasureSpec);
@@ -62,7 +72,6 @@ public class HueSatView extends View {
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-		//super.onSizeChanged(w, h, oldw, oldh);
 		this.w = w;
 		this.h = h;
 		borderPath = new Path();
@@ -84,9 +93,9 @@ public class HueSatView extends View {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:
 				clamp(pointer, event.getX(), event.getY());
-//				if ( listener != null ) {
-//					listener.colorSelected( getColorForPoint( (int)event.getX(), (int)event.getY(), colorHsv ) );
-//				}
+				if (listener != null) {
+					listener.onHueSatChanged(hueForPos(pointer.x, pointer.y, w), satForPos(pointer.x, pointer.y, w));
+				}
 				invalidate();
 				return true;
 		}
@@ -124,21 +133,32 @@ public class HueSatView extends View {
 		for (int y = 0; y < radiusPx; ++y) {
 			for (int x = 0; x < radiusPx; ++x) {
 				int i = x + y * radiusPx;
-				double r = radiusPx - 1; // gives values 0...1 inclusive
-				double dx = (r - x) / r;
-				double dy = (r - y) / r;
-				final double angle = Math.atan2(dy, dx);
-				final double distance = Math.sqrt(dx * dx + dy * dy);
-				double hue = 360 * angle / (Math.PI / 2);
-				double sat = Math.pow(distance, 2); // exaggerate desaturated
-				int alpha = (int)(Math.max(0, Math.min(1, (1 - sat) * r) * 255)); // antialias edge
-				hsv[0] = (float)hue;
-				hsv[1] = (float)sat;
+				float sat = satForPos(x, y, radiusPx);
+				int alpha = (int)(Math.max(0, Math.min(1, (1 - sat) * radiusPx)) * 255); // antialias edge
+				hsv[0] = hueForPos(x, y, radiusPx);
+				hsv[1] = sat;
 				colors[i] = Color.HSVToColor(alpha, hsv);
 			}
 		}
 		return Bitmap.createBitmap(colors, radiusPx, radiusPx, Bitmap.Config.ARGB_8888);
 	}
 
+	private static float hueForPos(float x, float y, float radius) {
+		double r = radius - 1; // gives values 0...1 inclusive
+		double dx = (r - x) / r;
+		double dy = (r - y) / r;
+		final double angle = Math.atan2(dy, dx);
+		final double hue = 360 * angle / (Math.PI / 2);
+		return (float)hue;
+	}
+
+	private static float satForPos(float x, float y, float radius) {
+		double r = radius - 1; // gives values 0...1 inclusive
+		double dx = (r - x) / r;
+		double dy = (r - y) / r;
+		final double distance = Math.sqrt(dx * dx + dy * dy);
+		double sat = Math.pow(distance, 2); // exaggerate desaturated
+		return (float)sat;
+	}
 
 }
