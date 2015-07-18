@@ -26,8 +26,11 @@ public class HueSatView extends View {
 	private int h;
 	private Path borderPath;
 	private Bitmap bitmap;
-	private PointF pointer = new PointF();
 	private Paint pointerPaint;
+
+	private PointF pointer = new PointF();
+	private float currentHue;
+	private float currentSat;
 
 	public HueSatView(Context context) {
 		this(context, null);
@@ -55,7 +58,9 @@ public class HueSatView extends View {
 	public void setFromColor(int color) {
 		float[] hsv = new float[]{0f, 0f, 1f};
 		Color.colorToHSV(color, hsv);
-		//pointer.set();
+		currentHue = hsv[0];
+		currentSat = hsv[1];
+		setPointer(pointer, currentHue, currentSat, w);
 	}
 
 	public void setChangeListener(HueSatListener listener) {
@@ -82,8 +87,10 @@ public class HueSatView extends View {
 		borderPath.close();
 
 		final int scale = 2;
-		final int radius = Math.min(w, h) / scale;
-		bitmap = makeBitmap(radius);
+		final int bitmapRadius = Math.min(w, h) / scale;
+		bitmap = makeBitmap(bitmapRadius);
+
+		setPointer(pointer, currentHue, currentSat, w);
 	}
 
 	@Override
@@ -93,8 +100,10 @@ public class HueSatView extends View {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:
 				clamp(pointer, event.getX(), event.getY());
+				currentHue = hueForPos(pointer.x, pointer.y, w);
+				currentSat = satForPos(pointer.x, pointer.y, w);
 				if (listener != null) {
-					listener.onHueSatChanged(hueForPos(pointer.x, pointer.y, w), satForPos(pointer.x, pointer.y, w));
+					listener.onHueSatChanged(currentHue, currentSat);
 				}
 				invalidate();
 				return true;
@@ -143,22 +152,31 @@ public class HueSatView extends View {
 		return Bitmap.createBitmap(colors, radiusPx, radiusPx, Bitmap.Config.ARGB_8888);
 	}
 
-	private static float hueForPos(float x, float y, float radius) {
-		double r = radius - 1; // gives values 0...1 inclusive
-		double dx = (r - x) / r;
-		double dy = (r - y) / r;
+	private static float hueForPos(float x, float y, float radiusPx) {
+		final double r = radiusPx - 1; // gives values 0...1 inclusive
+		final double dx = (r - x) / r;
+		final double dy = (r - y) / r;
 		final double angle = Math.atan2(dy, dx);
 		final double hue = 360 * angle / (Math.PI / 2);
 		return (float)hue;
 	}
 
-	private static float satForPos(float x, float y, float radius) {
-		double r = radius - 1; // gives values 0...1 inclusive
-		double dx = (r - x) / r;
-		double dy = (r - y) / r;
-		final double distance = Math.sqrt(dx * dx + dy * dy);
-		double sat = Math.pow(distance, 2); // exaggerate desaturated
+	private static float satForPos(float x, float y, float radiusPx) {
+		final double r = radiusPx - 1; // gives values 0...1 inclusive
+		final double dx = (r - x) / r;
+		final double dy = (r - y) / r;
+		final double sat = dx * dx + dy * dy; // leave it squared -- exaggerates pale colours
 		return (float)sat;
 	}
+
+	private static void setPointer(PointF pointer, float hue, float sat, float radiusPx) {
+		final float r = radiusPx - 1; // for values 0...1 inclusive
+		final double distance = r * Math.sqrt(sat);
+		final double angle = hue / 360 * Math.PI / 2;
+		final double dx = distance * Math.cos(angle);
+		final double dy = distance * Math.sin(angle);
+		pointer.set(r - (float)dx, r - (float)dy);
+	}
+
 
 }
