@@ -21,12 +21,12 @@ public class HueSatView extends View {
 
 	private HueSatListener listener;
 	private final Paint borderPaint;
+	private final Paint pointerPaint;
 	private final Path pointerPath;
+	private Path borderPath;
 	private int w;
 	private int h;
-	private Path borderPath;
 	private Bitmap bitmap;
-	private Paint pointerPaint;
 
 	private PointF pointer = new PointF();
 	private float currentHue;
