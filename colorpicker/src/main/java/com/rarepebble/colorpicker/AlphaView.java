@@ -5,60 +5,61 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
-public class ValueView extends SliderViewBase {
+public class AlphaView extends SliderViewBase {
 
-	private ValueListener listener;
+	private AlphaListener listener;
 
-	private float hue;
-	private float sat;
+	private int color;
 
-	public interface ValueListener {
-		void onValueChanged(float value);
+	public interface AlphaListener {
+		void onAlphaChanged(int alpha);
 	}
 
-	public ValueView(Context context) {
+	public AlphaView(Context context) {
 		this(context, null);
 	}
 
-	public ValueView(Context context, AttributeSet attrs) {
+	public AlphaView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 	}
 
 	@Override
 	protected void notifyListener(float currentPos) {
 		if (listener != null) {
-			listener.onValueChanged(currentPos);
+			listener.onAlphaChanged((int)(currentPos * 0xff));
 		}
 	}
 
 	public void setFromColor(int color) {
-		float[] hsv = new float[]{0f, 0f, 0f};
-		Color.colorToHSV(color, hsv);
-		hue = hsv[0];
-		sat = hsv[1];
-		setPos(hsv[2]);
+		this.color = color | 0xff000000;
+		setPos((float)Color.alpha(color)/0xff);
 		invalidate();
 	}
 
-	public void updateHueSat(float hue, float sat) {
-		this.hue = hue;
-		this.sat = sat;
+	public void updateColor(int color) {
+		this.color = color;
+		optimisePointerColour();
 		updateBitmap();
 		invalidate();
 	}
 
-	public void setChangeListener(ValueListener listener) {
+//	protected void optimisePointerColour() {
+//		pointerPaint.setColor(currentAlpha > 0.5f ? 0xff000000 : 0xffffffff);
+//	}
+
+
+	public void setChangeListener(AlphaListener listener) {
 		this.listener = listener;
 	}
 
+	@Override
 	protected Bitmap makeBitmap(int w, int h) {
 		final boolean isWide = w > h;
 		final int n = Math.max(w, h);
 		int[] colors = new int[n];
-		float[] hsv = new float[]{hue, sat, 0f};
 		for (int i = 0; i < n; ++i) {
-			hsv[2] = isWide ? (float)i / n : 1 - (float)i / n;
-			colors[i] = Color.HSVToColor(hsv);
+			float alpha = isWide ? (float)i / n : 1 - (float)i / n;
+			colors[i] = color & 0xffffff | (int)(alpha * 0xff) << 24;
 		}
 		final int bmpWidth = isWide ? w : 1;
 		final int bmpHeight = isWide ? 1 : h;

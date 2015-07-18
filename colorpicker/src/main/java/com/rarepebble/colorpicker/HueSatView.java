@@ -23,7 +23,7 @@ public class HueSatView extends View {
 	private final Paint borderPaint;
 	private final Paint pointerPaint;
 	private final Path pointerPath;
-	private Path borderPath;
+	private final Path borderPath;
 	private int w;
 	private int h;
 	private Bitmap bitmap;
@@ -53,6 +53,8 @@ public class HueSatView extends View {
 
 		pointerPath = new Path();
 		pointerPath.addCircle(0, 0, 10, Path.Direction.CW); //XXX dip to pixels
+
+		borderPath = new Path();
 	}
 
 	public void setFromColor(int color) {
@@ -79,7 +81,7 @@ public class HueSatView extends View {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		this.w = w;
 		this.h = h;
-		borderPath = new Path();
+		borderPath.reset();
 		borderPath.moveTo(w, 0);
 		borderPath.lineTo(w, h);
 		borderPath.lineTo(0, h);

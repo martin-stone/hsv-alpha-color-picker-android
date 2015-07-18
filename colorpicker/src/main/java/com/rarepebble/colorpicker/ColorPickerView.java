@@ -7,14 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 
-public class ColorPickerView extends FrameLayout implements HueSatView.HueSatListener, ValueView.ValueListener {
+public class ColorPickerView extends FrameLayout implements HueSatView.HueSatListener, ValueView.ValueListener, AlphaView.AlphaListener {
 	private final HueSatView hueSatView;
 	private final ValueView valueView;
+	private final AlphaView alphaView;
 	private int color;
 	private final View swatchView;
 	private float hue;
 	private float sat;
 	private float value;
+	private int alpha;
 
 	public ColorPickerView(Context context) {
 		this(context, null);
@@ -30,6 +32,9 @@ public class ColorPickerView extends FrameLayout implements HueSatView.HueSatLis
 		valueView = (ValueView)findViewById(R.id.valueView);
 		valueView.setChangeListener(this);
 
+		alphaView = (AlphaView)findViewById(R.id.alphaView);
+		alphaView.setChangeListener(this);
+
 		swatchView = findViewById(R.id.swatch);
 	}
 
@@ -43,29 +48,37 @@ public class ColorPickerView extends FrameLayout implements HueSatView.HueSatLis
 		hue = hsv[0];
 		sat = hsv[1];
 		value = hsv[2];
+		alpha = Color.alpha(color);
 		swatchView.setBackgroundColor(color);
 		hueSatView.setFromColor(color);
 		valueView.setFromColor(color);
+		alphaView.setFromColor(color);
 	}
 
 	@Override
 	public void onHueSatChanged(float hue, float sat) {
-//		Log.e("hue", Float.toString(hue));
-//		Log.e("sat", Float.toString(sat));
 		this.hue = hue;
 		this.sat = sat;
 		valueView.updateHueSat(hue, sat);
 		updateColor();
+		alphaView.updateColor(color);
 	}
 
 	@Override
 	public void onValueChanged(float value) {
 		this.value = value;
 		updateColor();
+		alphaView.updateColor(color);
+	}
+
+	@Override
+	public void onAlphaChanged(int alpha) {
+		this.alpha = alpha;
+		updateColor();
 	}
 
 	private void updateColor() {
-		color = Color.HSVToColor(new float[]{hue, sat, value});
+		color = Color.HSVToColor(alpha, new float[]{hue, sat, value});
 		swatchView.setBackgroundColor(color);
 	}
 
