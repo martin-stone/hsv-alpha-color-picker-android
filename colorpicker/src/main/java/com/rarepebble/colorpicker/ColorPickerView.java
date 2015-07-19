@@ -1,21 +1,17 @@
 package com.rarepebble.colorpicker;
 
 import android.content.Context;
-import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 
-public class ColorPickerView extends FrameLayout implements HueSatView.HueSatListener, ValueView.ValueListener, AlphaView.AlphaListener {
-	private final HueSatView hueSatView;
-	private final ValueView valueView;
-	private final AlphaView alphaView;
-	private int color;
+public class ColorPickerView extends FrameLayout {
+
+	private ObservableColor observableColor = new ObservableColor(0);
 	private final SwatchView swatchView;
-	private float hue;
-	private float sat;
-	private float value;
-	private int alpha;
 
 	public ColorPickerView(Context context) {
 		this(context, null);
@@ -25,62 +21,28 @@ public class ColorPickerView extends FrameLayout implements HueSatView.HueSatLis
 		super(context, attrs);
 		LayoutInflater.from(context).inflate(R.layout.picker, this);
 
-		hueSatView = (HueSatView)findViewById(R.id.hueSatView);
-		hueSatView.setChangeListener(this);
+		swatchView = (SwatchView)findViewById(R.id.swatchView);
+		swatchView.observeColor(observableColor);
 
-		valueView = (ValueView)findViewById(R.id.valueView);
-		valueView.setChangeListener(this);
+		HueSatView hueSatView = (HueSatView)findViewById(R.id.hueSatView);
+		hueSatView.observeColor(observableColor);
 
-		alphaView = (AlphaView)findViewById(R.id.alphaView);
-		alphaView.setChangeListener(this);
+		ValueView valueView = (ValueView)findViewById(R.id.valueView);
+		valueView.observeColor(observableColor);
 
-		swatchView = (SwatchView)findViewById(R.id.swatch);
+		AlphaView alphaView = (AlphaView)findViewById(R.id.alphaView);
+		alphaView.observeColor(observableColor);
+
+		EditText hexEdit = (EditText)findViewById(R.id.hexEdit);
+		HexEdit.setUpListeners(hexEdit, observableColor);
 	}
 
 	public int getColor() {
-		return color;
+		return observableColor.getColor();
 	}
 
 	public void setColor(int color) {
-		this.color = color;
-		float[] hsv = {0,0,0};
-		Color.colorToHSV(color, hsv);
-		hue = hsv[0];
-		sat = hsv[1];
-		value = hsv[2];
-		alpha = Color.alpha(color);
 		swatchView.setOldColor(color);
-		swatchView.setNewColor(color);
-		hueSatView.setFromColor(color);
-		valueView.setFromColor(color);
-		alphaView.setFromColor(color);
+		observableColor.notifyOtherObservers(color, null);
 	}
-
-	@Override
-	public void onHueSatChanged(float hue, float sat) {
-		this.hue = hue;
-		this.sat = sat;
-		valueView.updateHueSat(hue, sat);
-		updateColor();
-		alphaView.updateColor(color);
-	}
-
-	@Override
-	public void onValueChanged(float value) {
-		this.value = value;
-		updateColor();
-		alphaView.updateColor(color);
-	}
-
-	@Override
-	public void onAlphaChanged(int alpha) {
-		this.alpha = alpha;
-		updateColor();
-	}
-
-	private void updateColor() {
-		color = Color.HSVToColor(alpha, new float[]{hue, sat, value});
-		swatchView.setNewColor(color);
-	}
-
 }
