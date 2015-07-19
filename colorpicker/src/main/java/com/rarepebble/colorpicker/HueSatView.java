@@ -71,18 +71,25 @@ public class HueSatView extends View {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		this.w = w;
 		this.h = h;
-		borderPath.reset();
-		borderPath.moveTo(w, 0);
-		borderPath.lineTo(w, h);
-		borderPath.lineTo(0, h);
-		borderPath.addArc(new RectF(0, 0, 2 * w, 2 * h), 180, 270);
-		borderPath.close();
+		float inset = borderPaint.getStrokeWidth() / 2;
+		makeBorderPath(borderPath, w, h, inset);
 
 		final int scale = 2;
 		final int bitmapRadius = Math.min(w, h) / scale;
 		bitmap = makeBitmap(bitmapRadius);
 
 		setPointer(pointer, currentHue, currentSat, w);
+	}
+
+	private static void makeBorderPath(Path borderPath, int w, int h, float inset) {
+		w -= inset;
+		h -= inset;
+		borderPath.reset();
+		borderPath.moveTo(w, inset);
+		borderPath.lineTo(w, h);
+		borderPath.lineTo(inset, h);
+		borderPath.addArc(new RectF(inset, inset, 2 * w, 2 * h), 180, 270);
+		borderPath.close();
 	}
 
 	@Override
