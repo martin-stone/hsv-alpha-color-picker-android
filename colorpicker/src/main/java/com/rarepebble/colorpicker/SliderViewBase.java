@@ -48,9 +48,7 @@ public abstract class SliderViewBase extends View {
 
 	protected abstract Bitmap makeBitmap(int w, int h);
 
-	protected void optimisePointerColour() {
-		pointerPaint.setColor(currentPos > 0.5f ? 0xff000000 : 0xffffffff);
-	}
+	protected abstract int getPointerColor(float currentPos);
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
@@ -68,6 +66,7 @@ public abstract class SliderViewBase extends View {
 
 	protected void updateBitmap() {
 		bitmap = makeBitmap(w, h);
+		optimisePointerColour();
 	}
 
 	@Override
@@ -111,4 +110,7 @@ public abstract class SliderViewBase extends View {
 		return Math.max(0, Math.min(1, val));
 	}
 
+	private void optimisePointerColour() {
+		pointerPaint.setColor(getPointerColor(currentPos));
+	}
 }
