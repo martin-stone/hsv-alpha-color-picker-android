@@ -75,7 +75,7 @@ public abstract class SliderViewBase extends View {
 		switch (action) {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:
-				currentPos = valueForPos(event.getX(), event.getY());
+				currentPos = valueForTouchPos(event.getX(), event.getY());
 				optimisePointerColour();
 				notifyListener(currentPos);
 				invalidate();
@@ -105,7 +105,7 @@ public abstract class SliderViewBase extends View {
 		return w > h;
 	}
 
-	private float valueForPos(float x, float y) {
+	private float valueForTouchPos(float x, float y) {
 		final float val = isWide() ? x / w : 1 - y / h;
 		return Math.max(0, Math.min(1, val));
 	}
