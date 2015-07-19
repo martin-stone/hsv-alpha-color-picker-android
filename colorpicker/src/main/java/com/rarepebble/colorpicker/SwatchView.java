@@ -56,52 +56,49 @@ public class SwatchView extends View {
 
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-//		this.w = w;
-//		this.h = h;
 		final float inset = borderPaint.getStrokeWidth() / 2;
 		final float r = Math.min(w, h);
+
 		// We expect to be stacked behind a square HueSatView and fill the top left corner.
-		final float margin = 24; //XXX dip
+		final float margin = Resources.dipToPixels(getContext(), 16);
 		final float diagonal = r + 2 * margin;
 		final float opp = (float)Math.sqrt(diagonal * diagonal - r * r);
 		final float edgeLen = r - opp;
 		final float innerX = edgeLen + margin * opp / diagonal;
 		final float innerY = margin * r / diagonal;
 
-		borderPath.reset();
-		borderPath.moveTo(inset, inset);
-		borderPath.lineTo(edgeLen, inset);
-		borderPath.lineTo(innerX, innerY);
-
 		final float outerAngle = (float)Math.toDegrees(Math.atan2(opp, r));
 		final float startAngle = 270 - outerAngle;
 		final float sweepAngle = -90 + 2 * outerAngle;
+
+		beginBorder(borderPath, inset, edgeLen, innerX, innerY);
 		arcTo(borderPath, r, margin, startAngle, sweepAngle);
-		borderPath.lineTo(innerY, innerX);
-		borderPath.lineTo(inset, edgeLen);
-		borderPath.lineTo(inset, inset);
-		borderPath.close();
+		endBorder(borderPath, inset, edgeLen, innerX, innerY);
 
 		oldFillPath.reset();
 		oldFillPath.moveTo(inset, inset);
-		final float sin45 = 1.0f/(float)Math.sqrt(2);
-		final float midCurve = (r + margin) * sin45;
-		oldFillPath.lineTo(midCurve, midCurve);
 		arcTo(oldFillPath, r, margin, 225, sweepAngle / 2);
-		oldFillPath.lineTo(innerY, innerX);
-		oldFillPath.lineTo(inset, edgeLen);
-		oldFillPath.lineTo(inset, inset);
-		oldFillPath.close();
+		endBorder(oldFillPath, inset, edgeLen, innerX, innerY);
 
-		newFillPath.reset();
-		newFillPath.moveTo(inset, inset);
-		newFillPath.lineTo(edgeLen, inset);
-		newFillPath.lineTo(innerX, innerY);
+		beginBorder(newFillPath, inset, edgeLen, innerX, innerY);
 		arcTo(newFillPath, r, margin, startAngle, sweepAngle / 2);
 		newFillPath.lineTo(inset, inset);
 		newFillPath.close();
 	}
 
+	private static void beginBorder(Path path, float inset, float edgeLen, float innerX, float innerY) {
+		path.reset();
+		path.moveTo(inset, inset);
+		path.lineTo(edgeLen, inset);
+		path.lineTo(innerX, innerY);
+	}
+
+	private static void endBorder(Path path, float inset, float edgeLen, float innerX, float innerY) {
+		path.lineTo(innerY, innerX);
+		path.lineTo(inset, edgeLen);
+		path.lineTo(inset, inset);
+		path.close();
+	}
 	private static void arcTo(Path path, float r, float margin, float startAngle, float sweepAngle) {
 		path.arcTo(new RectF(-margin, -margin, 2 * r + margin, 2 * r + margin), startAngle, sweepAngle);
 	}
