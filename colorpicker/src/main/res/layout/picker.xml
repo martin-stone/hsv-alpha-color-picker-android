@@ -2,15 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical">
+              android:orientation="vertical"
+              android:padding="16dp"
+    >
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="16dp"
+        >
 
         <com.rarepebble.colorpicker.SwatchView
-            android:id="@+id/swatch"
+            android:id="@+id/swatchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
@@ -26,13 +30,25 @@
         android:id="@+id/valueView"
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
         />
 
     <com.rarepebble.colorpicker.AlphaView
         android:id="@+id/alphaView"
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:layout_margin="16dp"
+        android:layout_marginTop="16dp"
         />
+
+    <EditText
+        android:id="@+id/hexEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:typeface="monospace"
+        android:digits="0123456789ABCDEFabcdef"
+        android:maxLength="8"
+        />
+
 </LinearLayout>

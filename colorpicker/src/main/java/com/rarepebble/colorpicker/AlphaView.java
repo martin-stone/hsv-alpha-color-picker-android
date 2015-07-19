@@ -5,15 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
-public class AlphaView extends SliderViewBase {
+public class AlphaView extends SliderViewBase implements ObservableColor.Observer {
 
-	private AlphaListener listener;
-
-	private int color;
-
-	public interface AlphaListener {
-		void onAlphaChanged(int alpha);
-	}
+	private ObservableColor observableColor;
 
 	public AlphaView(Context context) {
 		this(context, null);
@@ -23,31 +17,26 @@ public class AlphaView extends SliderViewBase {
 		super(context, attrs);
 	}
 
-	public void setFromColor(int color) {
-		this.color = color | 0xff000000;
-		setPos((float)Color.alpha(color)/0xff);
-		invalidate();
+	public void observeColor(ObservableColor observableColor) {
+		this.observableColor = observableColor;
+		observableColor.addObserver(this);
 	}
 
-	public void updateColor(int color) {
-		this.color = color;
+	@Override
+	public void updateColor(ObservableColor observableColor) {
+		setPos((float)observableColor.getAlpha()/0xff);
 		updateBitmap();
 		invalidate();
 	}
 
-	public void setChangeListener(AlphaListener listener) {
-		this.listener = listener;
-	}
-
 	@Override
 	protected void notifyListener(float currentPos) {
-		if (listener != null) {
-			listener.onAlphaChanged((int)(currentPos * 0xff));
-		}
+		observableColor.updateAlpha((int)(currentPos * 0xff), this);
 	}
 
 	@Override
 	protected int getPointerColor(float currentPos) {
+		int color = observableColor.getColor();
 		float solidColorLightness = (Color.red(color) * 0.2126f + Color.green(color) * 0.7152f + Color.blue(color) * 0.0722f)/0xff;
 		float posLightness = 1 + currentPos * (solidColorLightness - 1);
 		return posLightness > 0.5f ? 0xff000000 : 0xffffffff;
@@ -57,6 +46,7 @@ public class AlphaView extends SliderViewBase {
 	protected Bitmap makeBitmap(int w, int h) {
 		final boolean isWide = w > h;
 		final int n = Math.max(w, h);
+		int color = observableColor.getColor();
 		int[] colors = new int[n];
 		for (int i = 0; i < n; ++i) {
 			float alpha = isWide ? (float)i / n : 1 - (float)i / n;

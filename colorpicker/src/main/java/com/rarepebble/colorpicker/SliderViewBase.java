@@ -55,8 +55,11 @@ public abstract class SliderViewBase extends View {
 	}
 
 	protected void updateBitmap() {
-		bitmap = makeBitmap(w, h);
-		optimisePointerColour();
+		if (w > 0 && h > 0) {
+			bitmap = makeBitmap(w, h);
+			optimisePointerColour();
+		}
+		// else not ready yet
 	}
 
 	@Override

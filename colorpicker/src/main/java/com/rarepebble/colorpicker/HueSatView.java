@@ -13,13 +13,8 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class HueSatView extends View {
+public class HueSatView extends View implements ObservableColor.Observer {
 
-	public interface HueSatListener {
-		void onHueSatChanged(float hue, float sat);
-	}
-
-	private HueSatListener listener;
 	private final Paint borderPaint;
 	private final Paint pointerPaint;
 	private final Path pointerPath;
@@ -29,8 +24,7 @@ public class HueSatView extends View {
 	private Bitmap bitmap;
 
 	private PointF pointer = new PointF();
-	private float currentHue;
-	private float currentSat;
+	private ObservableColor observableColor;
 
 	public HueSatView(Context context) {
 		this(context, null);
@@ -46,16 +40,15 @@ public class HueSatView extends View {
 		borderPath = new Path();
 	}
 
-	public void setFromColor(int color) {
-		float[] hsv = new float[]{0f, 0f, 1f};
-		Color.colorToHSV(color, hsv);
-		currentHue = hsv[0];
-		currentSat = hsv[1];
-		setPointer(pointer, currentHue, currentSat, w);
+	public void observeColor(ObservableColor observableColor) {
+		this.observableColor = observableColor;
+		observableColor.addObserver(this);
 	}
 
-	public void setChangeListener(HueSatListener listener) {
-		this.listener = listener;
+	@Override
+	public void updateColor(ObservableColor observableColor) {
+		setPointer(pointer, observableColor.getHue(), observableColor.getSat(), w);
+		invalidate();
 	}
 
 	@Override
@@ -78,7 +71,8 @@ public class HueSatView extends View {
 		final int bitmapRadius = Math.min(w, h) / scale;
 		bitmap = makeBitmap(bitmapRadius);
 
-		setPointer(pointer, currentHue, currentSat, w);
+		// Sets pointer position
+		updateColor(observableColor);
 	}
 
 	private static void makeBorderPath(Path borderPath, int w, int h, float inset) {
@@ -99,11 +93,10 @@ public class HueSatView extends View {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:
 				clamp(pointer, event.getX(), event.getY());
-				currentHue = hueForPos(pointer.x, pointer.y, w);
-				currentSat = satForPos(pointer.x, pointer.y, w);
-				if (listener != null) {
-					listener.onHueSatChanged(currentHue, currentSat);
-				}
+				observableColor.updateHueSat(
+						hueForPos(pointer.x, pointer.y, w),
+						satForPos(pointer.x, pointer.y, w),
+						this);
 				invalidate();
 				return true;
 		}
@@ -176,6 +169,4 @@ public class HueSatView extends View {
 		final double dy = distance * Math.sin(angle);
 		pointer.set(r - (float)dx, r - (float)dy);
 	}
-
-
 }

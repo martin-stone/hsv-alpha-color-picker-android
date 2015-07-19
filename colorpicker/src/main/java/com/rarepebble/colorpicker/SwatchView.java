@@ -8,7 +8,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class SwatchView extends View {
+public class SwatchView extends View implements ObservableColor.Observer {
 
 	private final Paint borderPaint;
 	private final Path borderPath;
@@ -40,8 +40,13 @@ public class SwatchView extends View {
 		invalidate();
 	}
 
-	void setNewColor(int color) {
-		newFillPaint.setColor(color);
+	void observeColor(ObservableColor observableColor) {
+		observableColor.addObserver(this);
+	}
+
+	@Override
+	public void updateColor(ObservableColor observableColor) {
+		newFillPaint.setColor(observableColor.getColor());
 		invalidate();
 	}
 
@@ -110,4 +115,5 @@ public class SwatchView extends View {
 		canvas.drawPath(newFillPath, newFillPaint);
 		canvas.drawPath(borderPath, borderPaint);
 	}
+
 }
