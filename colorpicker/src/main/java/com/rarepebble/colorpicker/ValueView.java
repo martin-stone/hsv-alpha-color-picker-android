@@ -24,13 +24,6 @@ public class ValueView extends SliderViewBase {
 		super(context, attrs);
 	}
 
-	@Override
-	protected void notifyListener(float currentPos) {
-		if (listener != null) {
-			listener.onValueChanged(currentPos);
-		}
-	}
-
 	public void setFromColor(int color) {
 		float[] hsv = new float[]{0f, 0f, 0f};
 		Color.colorToHSV(color, hsv);
@@ -49,6 +42,21 @@ public class ValueView extends SliderViewBase {
 
 	public void setChangeListener(ValueListener listener) {
 		this.listener = listener;
+	}
+
+	@Override
+	protected void notifyListener(float currentPos) {
+		if (listener != null) {
+			listener.onValueChanged(currentPos);
+		}
+	}
+
+	@Override
+	protected int getPointerColor(float currentPos) {
+		final int color = Color.HSVToColor(new float[]{hue, sat, currentPos});
+		float brightColorLightness = (Color.red(color) * 0.2126f + Color.green(color) * 0.7152f + Color.blue(color) * 0.0722f)/0xff;
+		float posLightness = currentPos * brightColorLightness;
+		return posLightness > 0.5f ? 0xff000000 : 0xffffffff;
 	}
 
 	protected Bitmap makeBitmap(int w, int h) {

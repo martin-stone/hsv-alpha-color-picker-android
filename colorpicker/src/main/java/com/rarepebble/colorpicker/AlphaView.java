@@ -23,13 +23,6 @@ public class AlphaView extends SliderViewBase {
 		super(context, attrs);
 	}
 
-	@Override
-	protected void notifyListener(float currentPos) {
-		if (listener != null) {
-			listener.onAlphaChanged((int)(currentPos * 0xff));
-		}
-	}
-
 	public void setFromColor(int color) {
 		this.color = color | 0xff000000;
 		setPos((float)Color.alpha(color)/0xff);
@@ -38,18 +31,26 @@ public class AlphaView extends SliderViewBase {
 
 	public void updateColor(int color) {
 		this.color = color;
-		optimisePointerColour();
 		updateBitmap();
 		invalidate();
 	}
 
-//	protected void optimisePointerColour() {
-//		pointerPaint.setColor(currentAlpha > 0.5f ? 0xff000000 : 0xffffffff);
-//	}
-
-
 	public void setChangeListener(AlphaListener listener) {
 		this.listener = listener;
+	}
+
+	@Override
+	protected void notifyListener(float currentPos) {
+		if (listener != null) {
+			listener.onAlphaChanged((int)(currentPos * 0xff));
+		}
+	}
+
+	@Override
+	protected int getPointerColor(float currentPos) {
+		float solidColorLightness = (Color.red(color) * 0.2126f + Color.green(color) * 0.7152f + Color.blue(color) * 0.0722f)/0xff;
+		float posLightness = 1 + currentPos * (solidColorLightness - 1);
+		return posLightness > 0.5f ? 0xff000000 : 0xffffffff;
 	}
 
 	@Override
