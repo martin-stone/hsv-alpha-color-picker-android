@@ -26,21 +26,9 @@ public abstract class SliderViewBase extends View {
 	public SliderViewBase(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
-		borderPaint = new Paint();
-		borderPaint.setColor(0xff808080);
-		borderPaint.setStrokeWidth(2); //XXX dip to pixels
-		borderPaint.setStyle(Paint.Style.STROKE);
-		borderPaint.setAntiAlias(true);
-
-		pointerPaint = new Paint();
-		pointerPaint.setColor(0xff808080);
-		pointerPaint.setStrokeWidth(2); //XXX dip to pixels
-		pointerPaint.setStyle(Paint.Style.STROKE);
-		pointerPaint.setAntiAlias(true);
-
-		pointerPath = new Path();
-		pointerPath.addCircle(0, 0, 10, Path.Direction.CW); //XXX dip to pixels
-
+		borderPaint = Resources.makeLinePaint(context);
+		pointerPaint = Resources.makeLinePaint(context);
+		pointerPath = Resources.makePointerPath(context);
 		borderPath = new Path();
 	}
 

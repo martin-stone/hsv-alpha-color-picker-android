@@ -39,21 +39,10 @@ public class HueSatView extends View {
 	public HueSatView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
-		borderPaint = new Paint();
-		borderPaint.setColor(0xff808080);
-		borderPaint.setStrokeWidth(2); //XXX dip to pixels
-		borderPaint.setStyle(Paint.Style.STROKE);
-		borderPaint.setAntiAlias(true);
-
-		pointerPaint = new Paint();
+		borderPaint = Resources.makeLinePaint(context);
+		pointerPaint = Resources.makeLinePaint(context);
 		pointerPaint.setColor(0xff000000);
-		pointerPaint.setStrokeWidth(2); //XXX dip to pixels
-		pointerPaint.setStyle(Paint.Style.STROKE);
-		pointerPaint.setAntiAlias(true);
-
-		pointerPath = new Path();
-		pointerPath.addCircle(0, 0, 10, Path.Direction.CW); //XXX dip to pixels
-
+		pointerPath = Resources.makePointerPath(context);
 		borderPath = new Path();
 	}
 
@@ -71,6 +60,7 @@ public class HueSatView extends View {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		// Constrain to square
 		int w = MeasureSpec.getSize(widthMeasureSpec);
 		int h = MeasureSpec.getSize(heightMeasureSpec);
 		w = h = Math.min(w, h);
