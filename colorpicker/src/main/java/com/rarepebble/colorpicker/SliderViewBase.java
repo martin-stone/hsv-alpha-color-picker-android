@@ -14,6 +14,7 @@ import android.view.View;
 public abstract class SliderViewBase extends View {
 
 	private final Paint borderPaint;
+	private final Paint checkerPaint;
 	private int w;
 	private int h;
 	private final Path borderPath;
@@ -25,7 +26,7 @@ public abstract class SliderViewBase extends View {
 
 	public SliderViewBase(Context context, AttributeSet attrs) {
 		super(context, attrs);
-
+		checkerPaint = Resources.makeCheckerPaint(context);
 		borderPaint = Resources.makeLinePaint(context);
 		pointerPaint = Resources.makeLinePaint(context);
 		pointerPath = Resources.makePointerPath(context);
@@ -75,6 +76,7 @@ public abstract class SliderViewBase extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
+		canvas.drawPath(borderPath, checkerPaint);
 		canvas.drawBitmap(bitmap, null, new Rect(0, 0, w, h), null);
 		canvas.drawPath(borderPath, borderPaint);
 
