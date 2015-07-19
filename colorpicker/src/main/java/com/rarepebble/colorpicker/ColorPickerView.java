@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.FrameLayout;
 
 public class ColorPickerView extends FrameLayout implements HueSatView.HueSatListener, ValueView.ValueListener, AlphaView.AlphaListener {
@@ -12,7 +11,7 @@ public class ColorPickerView extends FrameLayout implements HueSatView.HueSatLis
 	private final ValueView valueView;
 	private final AlphaView alphaView;
 	private int color;
-	private final View swatchView;
+	private final SwatchView swatchView;
 	private float hue;
 	private float sat;
 	private float value;
@@ -35,7 +34,7 @@ public class ColorPickerView extends FrameLayout implements HueSatView.HueSatLis
 		alphaView = (AlphaView)findViewById(R.id.alphaView);
 		alphaView.setChangeListener(this);
 
-		swatchView = findViewById(R.id.swatch);
+		swatchView = (SwatchView)findViewById(R.id.swatch);
 	}
 
 	public int getColor() {
@@ -43,13 +42,15 @@ public class ColorPickerView extends FrameLayout implements HueSatView.HueSatLis
 	}
 
 	public void setColor(int color) {
+		this.color = color;
 		float[] hsv = {0,0,0};
 		Color.colorToHSV(color, hsv);
 		hue = hsv[0];
 		sat = hsv[1];
 		value = hsv[2];
 		alpha = Color.alpha(color);
-		swatchView.setBackgroundColor(color);
+		swatchView.setOldColor(color);
+		swatchView.setNewColor(color);
 		hueSatView.setFromColor(color);
 		valueView.setFromColor(color);
 		alphaView.setFromColor(color);
@@ -79,7 +80,7 @@ public class ColorPickerView extends FrameLayout implements HueSatView.HueSatLis
 
 	private void updateColor() {
 		color = Color.HSVToColor(alpha, new float[]{hue, sat, value});
-		swatchView.setBackgroundColor(color);
+		swatchView.setNewColor(color);
 	}
 
 }
