@@ -43,8 +43,9 @@ public abstract class SliderViewBase extends View {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		this.w = w;
 		this.h = h;
+		float inset = borderPaint.getStrokeWidth() / 2;
 		borderPath.reset();
-		borderPath.addRect(new RectF(0, 0, w, h), Path.Direction.CW);
+		borderPath.addRect(new RectF(inset, inset, w - inset, h - inset), Path.Direction.CW);
 		updateBitmap();
 	}
 
