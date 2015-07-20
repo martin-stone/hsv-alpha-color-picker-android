@@ -11,16 +11,18 @@ class ObservableColor {
 		void updateColor(ObservableColor observableColor);
 	}
 
-	private int color;
+	// Store as HSV & A, otherwise round-trip to int causes color drift.
 	private float[] hsv = {0, 0, 0};
+	private int alpha;
 	private List<Observer> observers = new ArrayList<Observer>();
 
 	ObservableColor(int color) {
-		this.color = color;
+		Color.colorToHSV(color, hsv);
+		alpha = Color.alpha(color);
 	}
 
 	public int getColor() {
-		return color;
+		return Color.HSVToColor(alpha, hsv);
 	}
 
 	public float getHue() {
@@ -36,7 +38,7 @@ class ObservableColor {
 	}
 
 	public int getAlpha() {
-		return Color.alpha(color);
+		return alpha;
 	}
 
 	void addObserver(Observer observer) {
@@ -46,24 +48,26 @@ class ObservableColor {
 	public void updateHueSat(float hue, float sat, Observer sender) {
 		hsv[0] = hue;
 		hsv[1] = sat;
-		color = Color.HSVToColor(getAlpha(), hsv);
-		notifyOtherObservers(color, sender);
+		notifyOtherObservers(sender);
 	}
 
 	public void updateValue(float value, Observer sender) {
 		hsv[2] = value;
-		color = Color.HSVToColor(getAlpha(), hsv);
-		notifyOtherObservers(color, sender);
+		notifyOtherObservers(sender);
 	}
 
 	public void updateAlpha(int alpha, Observer sender) {
-		color = Color.HSVToColor(alpha, hsv);
-		notifyOtherObservers(color, sender);
+		this.alpha = alpha;
+		notifyOtherObservers(sender);
 	}
 
-	public void notifyOtherObservers(int color, Observer sender) {
-		this.color = color;
-		Color.colorToHSV(color, this.hsv);
+	public void updateColor(int color, Observer sender) {
+		Color.colorToHSV(color, hsv);
+		alpha = Color.alpha(color);
+		notifyOtherObservers(sender);
+	}
+
+	public void notifyOtherObservers(Observer sender) {
 		for (Observer observer : observers) {
 			if (observer != sender) {
 				observer.updateColor(this);

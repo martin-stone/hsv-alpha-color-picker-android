@@ -8,17 +8,19 @@ public class HexEdit {
 
 	public static void setUpListeners(final EditText hexEdit, final ObservableColor observableColor) {
 
-		final ObservableColor.Observer observer = new ObservableColor.Observer() {
+		class MultiObserver implements ObservableColor.Observer, TextWatcher {
+
 			@Override
 			public void updateColor(ObservableColor observableColor) {
+				// Prevent onTextChanged getting called when we update text programmatically
+				hexEdit.removeTextChangedListener(this);
+
 				final String colorString = String.format("%08x", observableColor.getColor());
 				hexEdit.setText(colorString);
+
+				hexEdit.addTextChangedListener(this);
 			}
-		};
 
-		observableColor.addObserver(observer);
-
-		hexEdit.addTextChangedListener(new TextWatcher() {
 			@Override
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 			}
@@ -27,17 +29,20 @@ public class HexEdit {
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
 				try {
 					int color = (int)(Long.parseLong(s.toString(), 16) & 0xffffffff);
-					observableColor.notifyOtherObservers(color, observer);
+					observableColor.updateColor(color, this);
 				}
 				catch (NumberFormatException e) {
-					observableColor.notifyOtherObservers(0, observer);
+					observableColor.updateColor(0, this);
 				}
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
 			}
-		});
-	}
+		}
 
+		final MultiObserver multiObserver = new MultiObserver();
+		hexEdit.addTextChangedListener(multiObserver);
+		observableColor.addObserver(multiObserver);
+	}
 }
