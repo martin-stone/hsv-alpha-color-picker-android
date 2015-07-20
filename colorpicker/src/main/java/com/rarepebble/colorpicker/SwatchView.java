@@ -1,6 +1,7 @@
 package com.rarepebble.colorpicker;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -17,6 +18,7 @@ public class SwatchView extends View implements ObservableColor.Observer {
 	private final Path newFillPath;
 	private final Paint oldFillPaint;
 	private final Paint newFillPaint;
+	private final float radialMarginPx;
 
 	public SwatchView(Context context) {
 		this(context, null);
@@ -24,6 +26,10 @@ public class SwatchView extends View implements ObservableColor.Observer {
 
 	public SwatchView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+
+		TypedArray a = context.getTheme().obtainStyledAttributes(
+				attrs, R.styleable.SwatchView, 0, 0);
+		radialMarginPx = a.getDimension(R.styleable.SwatchView_radialMargin, 0f);
 
 		borderPaint = Resources.makeLinePaint(context);
 		checkerPaint = Resources.makeCheckerPaint(context);
@@ -65,7 +71,7 @@ public class SwatchView extends View implements ObservableColor.Observer {
 		final float r = Math.min(w, h);
 
 		// We expect to be stacked behind a square HueSatView and fill the top left corner.
-		final float margin = Resources.dipToPixels(getContext(), 16);
+		final float margin = radialMarginPx;
 		final float diagonal = r + 2 * margin;
 		final float opp = (float)Math.sqrt(diagonal * diagonal - r * r);
 		final float edgeLen = r - opp;
