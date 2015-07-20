@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="@dimen/margin"
     android:layout_gravity="center"
     >
 
@@ -17,6 +18,7 @@
             android:id="@+id/swatchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:radialMargin="@dimen/margin"
             />
 
         <com.rarepebble.colorpicker.HueSatView
@@ -29,22 +31,22 @@
     <com.rarepebble.colorpicker.ValueView
         android:id="@+id/valueView"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="@dimen/sliderWidth"
+        android:layout_marginTop="@dimen/margin"
         />
 
     <com.rarepebble.colorpicker.AlphaView
         android:id="@+id/alphaView"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="@dimen/sliderWidth"
+        android:layout_marginTop="@dimen/margin"
         />
 
     <EditText
         android:id="@+id/hexEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/margin"
         android:digits="0123456789ABCDEFabcdef"
         android:gravity="center_horizontal"
         android:maxLength="8"
