@@ -24,7 +24,7 @@ public class HueSatView extends View implements ObservableColor.Observer {
 	private Bitmap bitmap;
 
 	private PointF pointer = new PointF();
-	private ObservableColor observableColor;
+	private ObservableColor observableColor = new ObservableColor(0);
 
 	public HueSatView(Context context) {
 		this(context, null);
