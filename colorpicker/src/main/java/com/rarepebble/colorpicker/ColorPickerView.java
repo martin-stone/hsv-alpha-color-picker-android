@@ -33,6 +33,9 @@ public class ColorPickerView extends FrameLayout {
 
 		EditText hexEdit = (EditText)findViewById(R.id.hexEdit);
 		HexEdit.setUpListeners(hexEdit, observableColor);
+
+		// We get all our state saved and restored for free,
+		// thanks to the EditText and its listeners!
 	}
 
 	public int getColor() {
