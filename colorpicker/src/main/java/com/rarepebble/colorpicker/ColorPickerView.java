@@ -1,8 +1,6 @@
 package com.rarepebble.colorpicker;
 
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -43,6 +41,6 @@ public class ColorPickerView extends FrameLayout {
 
 	public void setColor(int color) {
 		swatchView.setOldColor(color);
-		observableColor.notifyOtherObservers(color, null);
+		observableColor.updateColor(color, null);
 	}
 }
