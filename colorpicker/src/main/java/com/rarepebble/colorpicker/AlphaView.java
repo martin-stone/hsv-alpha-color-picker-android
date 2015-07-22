@@ -36,8 +36,7 @@ public class AlphaView extends SliderViewBase implements ObservableColor.Observe
 
 	@Override
 	protected int getPointerColor(float currentPos) {
-		int color = observableColor.getColor();
-		float solidColorLightness = (Color.red(color) * 0.2126f + Color.green(color) * 0.7152f + Color.blue(color) * 0.0722f)/0xff;
+		float solidColorLightness = observableColor.getLightness();
 		float posLightness = 1 + currentPos * (solidColorLightness - 1);
 		return posLightness > 0.5f ? 0xff000000 : 0xffffffff;
 	}
