@@ -41,6 +41,16 @@ class ObservableColor {
 		return alpha;
 	}
 
+	public float getLightness() {
+		return getLightnessWithValue(hsv[2]);
+	}
+
+	public float getLightnessWithValue(float value) {
+		float[] hsV = {hsv[0], hsv[1], value};
+		final int color = Color.HSVToColor(hsV);
+		return (Color.red(color) * 0.2126f + Color.green(color) * 0.7152f + Color.blue(color) * 0.0722f)/0xff;
+	}
+
 	void addObserver(Observer observer) {
 		observers.add(observer);
 	}

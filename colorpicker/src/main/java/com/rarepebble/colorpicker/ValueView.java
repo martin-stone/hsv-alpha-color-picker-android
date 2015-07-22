@@ -36,8 +36,7 @@ public class ValueView extends SliderViewBase implements ObservableColor.Observe
 
 	@Override
 	protected int getPointerColor(float currentPos) {
-		final int color = observableColor.getColor();
-		float brightColorLightness = (Color.red(color) * 0.2126f + Color.green(color) * 0.7152f + Color.blue(color) * 0.0722f)/0xff;
+		float brightColorLightness = observableColor.getLightness();
 		float posLightness = currentPos * brightColorLightness;
 		return posLightness > 0.5f ? 0xff000000 : 0xffffffff;
 	}

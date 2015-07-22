@@ -9,6 +9,7 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -48,6 +49,7 @@ public class HueSatView extends View implements ObservableColor.Observer {
 	@Override
 	public void updateColor(ObservableColor observableColor) {
 		setPointer(pointer, observableColor.getHue(), observableColor.getSat(), w);
+		optimisePointerColor();
 		invalidate();
 	}
 
@@ -97,6 +99,7 @@ public class HueSatView extends View implements ObservableColor.Observer {
 						hueForPos(pointer.x, pointer.y, w),
 						satForPos(pointer.x, pointer.y, w),
 						this);
+				optimisePointerColor();
 				invalidate();
 				return true;
 		}
@@ -116,13 +119,21 @@ public class HueSatView extends View implements ObservableColor.Observer {
 		pointer.set(x, y);
 	}
 
+	private void optimisePointerColor() {
+		pointerPaint.setColor(
+				observableColor.getLightnessWithValue(1) > 0.5
+				? 0xff000000 : 0xffffffff);
+	}
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		canvas.drawBitmap(bitmap, null, new Rect(0, 0, w, h), null);
 		canvas.drawPath(borderPath, borderPaint);
 
-		canvas.save(Canvas.MATRIX_SAVE_FLAG);
+		canvas.save(Canvas.MATRIX_SAVE_FLAG|Canvas.CLIP_SAVE_FLAG);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			canvas.clipPath(borderPath);
+		}
 		canvas.translate(pointer.x, pointer.y);
 		canvas.drawPath(pointerPath, pointerPaint);
 		canvas.restore();
