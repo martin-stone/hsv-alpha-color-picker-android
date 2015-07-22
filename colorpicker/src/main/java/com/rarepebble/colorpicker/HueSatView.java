@@ -93,31 +93,43 @@ public class HueSatView extends View implements ObservableColor.Observer {
 		int action = event.getActionMasked();
 		switch (action) {
 			case MotionEvent.ACTION_DOWN:
+				boolean withinPicker = clamp(pointer, event.getX(), event.getY(), true);
+				if (withinPicker) update();
+				return withinPicker;
 			case MotionEvent.ACTION_MOVE:
-				clamp(pointer, event.getX(), event.getY());
-				observableColor.updateHueSat(
-						hueForPos(pointer.x, pointer.y, w),
-						satForPos(pointer.x, pointer.y, w),
-						this);
-				optimisePointerColor();
-				invalidate();
+				clamp(pointer, event.getX(), event.getY(), false);
+				update();
 				return true;
 		}
 		return super.onTouchEvent(event);
 	}
 
-	private void clamp(PointF pointer, float x, float y) {
+	private void update() {
+		observableColor.updateHueSat(
+				hueForPos(pointer.x, pointer.y, w),
+				satForPos(pointer.x, pointer.y, w),
+				this);
+		optimisePointerColor();
+		invalidate();
+	}
+
+	private boolean clamp(PointF pointer, float x, float y, boolean rejectOutside) {
 		x = Math.min(x, w);
 		y = Math.min(y, h);
 		final float dx = w - x;
 		final float dy = h - y;
 		final float r = (float)Math.sqrt(dx * dx + dy * dy);
-		if (r > w) {
-			x = w - dx * w / r;
-			y = w - dy * w / r;
+		boolean outside = r > w;
+		if (!outside || !rejectOutside) {
+			if (outside) {
+				x = w - dx * w / r;
+				y = w - dy * w / r;
+			}
+			pointer.set(x, y);
 		}
-		pointer.set(x, y);
+		return !outside;
 	}
+
 
 	private void optimisePointerColor() {
 		pointerPaint.setColor(
