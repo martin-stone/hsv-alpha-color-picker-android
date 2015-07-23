@@ -47,7 +47,7 @@ public class ValueView extends SliderViewBase implements ObservableColor.Observe
 		int[] colors = new int[n];
 
 		float[] hsv = new float[]{0, 0, 0};
-		Color.colorToHSV(observableColor.getColor(), hsv);
+		observableColor.getHsv(hsv);
 
 		for (int i = 0; i < n; ++i) {
 			hsv[2] = isWide ? (float)i / n : 1 - (float)i / n;

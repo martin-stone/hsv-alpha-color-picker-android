@@ -21,6 +21,12 @@ class ObservableColor {
 		alpha = Color.alpha(color);
 	}
 
+	public void getHsv(float hsvOut[]) {
+		hsvOut[0] = hsv[0];
+		hsvOut[1] = hsv[1];
+		hsvOut[2] = hsv[2];
+	}
+
 	public int getColor() {
 		return Color.HSVToColor(alpha, hsv);
 	}
