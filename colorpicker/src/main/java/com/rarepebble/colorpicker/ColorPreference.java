@@ -63,7 +63,7 @@ public class ColorPreference extends DialogPreference {
 	void showColor(Integer color) {
 		if (thumbnail != null) {
 			thumbnail.setVisibility(color == null ? View.GONE : View.VISIBLE);
-			thumbnail.findViewById(R.id.colorPreview).setBackgroundColor(color == null ? 0x00000000 : color);
+			thumbnail.findViewById(R.id.colorPreview).setBackgroundColor(color == null ? 0 : color);
 		}
 		if (noneSelectedSummaryText != null) {
 			setSummary(color == null ? noneSelectedSummaryText : null);
@@ -78,7 +78,7 @@ public class ColorPreference extends DialogPreference {
 		builder
 				.setTitle(null)
 				.setView(picker)
-				.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+				.setPositiveButton(getPositiveButtonText(), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						final int color = picker.getColor();
