@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -27,7 +28,7 @@ public class ColorPreference extends DialogPreference {
 			selectNoneButtonText = a.getString(R.styleable.ColorPreference_selectNoneButtonText);
 			noneSelectedSummaryText = a.getString(R.styleable.ColorPreference_noneSelectedSummaryText);
 			defaultColor = a.hasValue(R.styleable.ColorPreference_defaultColor)
-					? a.getColor(R.styleable.ColorPreference_defaultColor, 0xff808080)
+					? a.getColor(R.styleable.ColorPreference_defaultColor, Color.GRAY)
 					: null;
 		}
 		else {
@@ -55,7 +56,7 @@ public class ColorPreference extends DialogPreference {
 
 	private Integer getPersistedIntDefaultOrNull() {
 		return getSharedPreferences().contains(getKey())
-				? new Integer(getPersistedInt(0xff808080))
+				? new Integer(getPersistedInt(Color.GRAY))
 				: defaultColor;
 	}
 
@@ -73,7 +74,7 @@ public class ColorPreference extends DialogPreference {
 	protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
 		super.onPrepareDialogBuilder(builder);
 		final ColorPickerView picker = new ColorPickerView(getContext());
-		picker.setColor(getPersistedInt(defaultColor == null ? 0xff808080 : defaultColor));
+		picker.setColor(getPersistedInt(defaultColor == null ? Color.GRAY : defaultColor));
 		builder
 				.setTitle(null)
 				.setView(picker)
