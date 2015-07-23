@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    android:id="@+id/thumbnail"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/preference_thumbnail_size"
+    android:layout_height="@dimen/preference_thumbnail_size">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/checker_background"
+        />
+
+    <View
+        android:id="@+id/colorPreview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        />
+
+</FrameLayout>

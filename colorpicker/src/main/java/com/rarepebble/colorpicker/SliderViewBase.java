@@ -51,13 +51,13 @@ public abstract class SliderViewBase extends View {
 
 	protected void setPos(float pos) {
 		currentPos = pos;
-		optimisePointerColour();
+		optimisePointerColor();
 	}
 
 	protected void updateBitmap() {
 		if (w > 0 && h > 0) {
 			bitmap = makeBitmap(w, h);
-			optimisePointerColour();
+			optimisePointerColor();
 		}
 		// else not ready yet
 	}
@@ -69,7 +69,7 @@ public abstract class SliderViewBase extends View {
 			case MotionEvent.ACTION_DOWN:
 			case MotionEvent.ACTION_MOVE:
 				currentPos = valueForTouchPos(event.getX(), event.getY());
-				optimisePointerColour();
+				optimisePointerColor();
 				notifyListener(currentPos);
 				invalidate();
 				return true;
@@ -104,7 +104,7 @@ public abstract class SliderViewBase extends View {
 		return Math.max(0, Math.min(1, val));
 	}
 
-	private void optimisePointerColour() {
+	private void optimisePointerColor() {
 		pointerPaint.setColor(getPointerColor(currentPos));
 	}
 }

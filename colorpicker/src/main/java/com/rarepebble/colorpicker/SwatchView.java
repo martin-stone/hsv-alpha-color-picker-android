@@ -27,9 +27,13 @@ public class SwatchView extends View implements ObservableColor.Observer {
 	public SwatchView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
-		TypedArray a = context.getTheme().obtainStyledAttributes(
-				attrs, R.styleable.SwatchView, 0, 0);
-		radialMarginPx = a.getDimension(R.styleable.SwatchView_radialMargin, 0f);
+		if (attrs != null) {
+			TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.SwatchView, 0, 0);
+			radialMarginPx = a.getDimension(R.styleable.SwatchView_radialMargin, 0f);
+		}
+		else {
+			radialMarginPx = 0;
+		}
 
 		borderPaint = Resources.makeLinePaint(context);
 		checkerPaint = Resources.makeCheckerPaint(context);

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="margin">16dp</dimen>
     <dimen name="sliderWidth">36dp</dimen> <!--Matches checker pattern-->
+    <dimen name="preference_thumbnail_size">48dp</dimen>
 </resources>

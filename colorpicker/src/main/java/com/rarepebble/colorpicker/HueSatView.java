@@ -180,7 +180,7 @@ public class HueSatView extends View implements ObservableColor.Observer {
 		final double r = radiusPx - 1; // gives values 0...1 inclusive
 		final double dx = (r - x) / r;
 		final double dy = (r - y) / r;
-		final double sat = dx * dx + dy * dy; // leave it squared -- exaggerates pale colours
+		final double sat = dx * dx + dy * dy; // leave it squared -- exaggerates pale colors
 		return (float)sat;
 	}
 
