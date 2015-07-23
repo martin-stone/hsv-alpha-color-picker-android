@@ -50,7 +50,11 @@ public class ColorPreference extends DialogPreference {
 		LinearLayout widgetFrameView = ((LinearLayout)view.findViewById(android.R.id.widget_frame));
 		widgetFrameView.setVisibility(View.VISIBLE);
 		widgetFrameView.removeAllViews();
-		LayoutInflater.from(getContext()).inflate(R.layout.color_preference_thumbnail, widgetFrameView);
+		LayoutInflater.from(getContext()).inflate(
+				isEnabled()
+					? R.layout.color_preference_thumbnail
+					: R.layout.color_preference_thumbnail_disabled,
+				widgetFrameView);
 		return widgetFrameView.findViewById(R.id.thumbnail);
 	}
 
