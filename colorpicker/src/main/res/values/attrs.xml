@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <declare-styleable name="SwatchView">
         <attr name="radialMargin" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="ColorPreference">
+        <attr name="selectNoneButtonText" format="string" />
+        <attr name="noneSelectedSummaryText" format="string" />
+        <attr name="defaultColor" format="color"/>
+    </declare-styleable>
+
 </resources>
