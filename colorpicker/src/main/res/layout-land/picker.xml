@@ -67,6 +67,7 @@
             android:typeface="monospace"
             android:textSize="18sp"
             android:background="@null"
+            android:inputType="textNoSuggestions"
             />
 
     </LinearLayout>
