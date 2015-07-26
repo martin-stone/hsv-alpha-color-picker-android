@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">HSV-Alpha Color Picker</string>
+    <string name="title_activity_main">Color picker demo</string>
 </resources>
