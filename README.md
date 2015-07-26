@@ -3,7 +3,7 @@
 This library implements a color picker and a color preference for use in Android
 applications.
 
-![Portrait](docs/portrait.png) ![Landscape](docs/landscape.png) ![Preferences](preference.png)
+![Portrait](docs/portrait.png) ![Landscape](docs/landscape.png) ![Preferences](docs/preference.png)
 
 ## Features
 
@@ -48,8 +48,8 @@ To use the "optional color" functionality, specify a button label for the "no co
             />
 
 You can also specify some summary text to be shown when there is no color chosen, as in the example
-here The "No color" choice is saved by removing the saved preference, so use
-*SharedPreference.contains("myOptionalColor") to test for that.
+here. The "No color" choice is saved by removing the saved preference, so use
+*SharedPreference.contains("myOptionalColor")* to test for that.
 
 ## ColorPickerView Usage
 
@@ -70,7 +70,7 @@ Please report bugs in the GitHub issue tracker.
 
 ## License
 
-Licensed under the Apache License, Version 2.0 (tcolorpickerhe "License");
+Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
