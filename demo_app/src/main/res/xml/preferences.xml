@@ -5,7 +5,15 @@
 
     <com.rarepebble.colorpicker.ColorPreference
         android:key="favColor"
-        android:title="My favorite color"
+        android:title="@string/pref_title_1"
         app:defaultColor="#f00"
         />
+
+    <com.rarepebble.colorpicker.ColorPreference
+        android:key="optionalColor"
+        android:title="@string/pref_optional_color"
+        app:noneSelectedSummaryText="@string/no_color_selected"
+        app:selectNoneButtonText="@string/no_color"
+        />
+
 </PreferenceScreen>
