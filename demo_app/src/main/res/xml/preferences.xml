@@ -4,8 +4,8 @@
     xmlns:colorpicker="http://schemas.android.com/apk/res/com.rarepebble.colorpicker">
 
     <com.rarepebble.colorpicker.ColorPreference
-        android:key="favColor"
-        android:title="@string/pref_title_1"
+        android:key="simplePreference"
+        android:title="@string/pref_title"
         colorpicker:defaultColor="#f00"
         />
 

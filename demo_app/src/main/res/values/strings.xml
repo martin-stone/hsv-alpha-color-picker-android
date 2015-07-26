@@ -2,7 +2,7 @@
     <string name="app_name">HSV-Alpha Color Picker</string>
     <string name="title_activity_main">Color picker demo</string>
 
-    <string name="pref_title_1">My favorite color</string>
+    <string name="pref_title">An example color</string>
     <string name="pref_optional_color">An optional color</string>
     <string name="no_color_selected">The user has chosen not to specify a color</string>
     <string name="no_color">No color</string>
