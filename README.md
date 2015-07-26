@@ -66,7 +66,7 @@ for a fuller example.
 
 ## Bugs
 
-Please report bugs in the GitHub [issue tracker](issues/).
+Please report bugs in the GitHub issue tracker.
 
 ## License
 
