@@ -1,7 +1,6 @@
 # HSV-Alpha Color Picker for Android
 
-This library implements a color picker and a color preference for use in Android
-applications.
+This library implements a color picker and a color preference for use in Android applications.
 
 ![Portrait](docs/portrait.png) ![Landscape](docs/landscape.png) ![Preferences](docs/preference.png)
 
@@ -10,7 +9,7 @@ applications.
 I couldn't find this combination of features in an existing library, which is why I wrote this one:
 
 * Alpha slider.
-* Copy / pasteable text field.
+* Text field to copy and paste hex color values.
 * Old and new colors displayed side by side.
 * Selection of "no color".
 * Proper behavior when orientation changes.
@@ -21,6 +20,13 @@ In addition, the Hue-Saturation picker...
 * gives higher hue precision than a square picker of the same size.
 * allows easier selection of pure white than a circular picker.
 
+## Using the Library
+
+The library is on JCenter so you should only need to add the following to your build.gradle:
+
+    compile 'com.rarepebble:colorpicker:1.0.0'
+
+
 ## ColorPreference Usage
 
 Add the *colorpicker* library to your project and add the *ColorPreference* to your preference
@@ -28,12 +34,12 @@ screen xml:
 
     <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:colorpicker="http://schemas.android.com/apk/res/com.rarepebble.colorpicker">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="simplePreference"
             android:title="@string/pref_title"
-            colorpicker:defaultColor="#f00"
+            app:colorpicker_defaultColor="#f00"
             />
 
     </PreferenceScreen>
@@ -41,10 +47,10 @@ screen xml:
 To use the "optional color" functionality, specify a button label for the "no colour" button:
 
         <com.rarepebble.colorpicker.ColorPreference
-            android:key="optionalColor"
+            android:key="myOptionalColor"
             android:title="@string/pref_optional_color"
-            colorpicker:noneSelectedSummaryText="@string/no_color_selected"
-            colorpicker:selectNoneButtonText="@string/no_color"
+            app:colorpicker_noneSelectedSummaryText="@string/no_color_selected"
+            app:colorpicker_selectNoneButtonText="@string/no_color"
             />
 
 You can also specify some summary text to be shown when there is no color chosen, as in the example
@@ -53,8 +59,8 @@ here. The "No color" choice is saved by removing the saved preference, so use
 
 ## ColorPickerView Usage
 
-You can construct a *ColorPickerView* in the usual way, either in code or in a layout. Get and set
-the color in the conventional way:
+You can construct a *ColorPickerView* in the usual way, either in code or in a layout. Set the
+initial color with *setColor()* and retrieve the view's current color with *getColor()*:
 
     final ColorPickerView picker = new ColorPickerView(getContext());
     picker.setColor(0xff12345);
