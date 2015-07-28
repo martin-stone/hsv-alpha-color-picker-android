@@ -41,10 +41,10 @@ public class ColorPreference extends DialogPreference {
 
 		if (attrs != null) {
 			TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPreference, 0, 0);
-			selectNoneButtonText = a.getString(R.styleable.ColorPreference_selectNoneButtonText);
-			noneSelectedSummaryText = a.getString(R.styleable.ColorPreference_noneSelectedSummaryText);
-			defaultColor = a.hasValue(R.styleable.ColorPreference_defaultColor)
-					? a.getColor(R.styleable.ColorPreference_defaultColor, Color.GRAY)
+			selectNoneButtonText = a.getString(R.styleable.ColorPreference_colorpicker_selectNoneButtonText);
+			noneSelectedSummaryText = a.getString(R.styleable.ColorPreference_colorpicker_noneSelectedSummaryText);
+			defaultColor = a.hasValue(R.styleable.ColorPreference_colorpicker_defaultColor)
+					? a.getColor(R.styleable.ColorPreference_colorpicker_defaultColor, Color.GRAY)
 					: null;
 		}
 		else {

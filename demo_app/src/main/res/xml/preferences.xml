@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:colorpicker="http://schemas.android.com/apk/res/com.rarepebble.colorpicker">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.rarepebble.colorpicker.ColorPreference
         android:key="simplePreference"
         android:title="@string/pref_title"
-        colorpicker:defaultColor="#f00"
+        app:colorpicker_defaultColor="#f00"
         />
 
     <com.rarepebble.colorpicker.ColorPreference
         android:key="optionalColor"
         android:title="@string/pref_optional_color"
-        colorpicker:noneSelectedSummaryText="@string/no_color_selected"
-        colorpicker:selectNoneButtonText="@string/no_color"
+        app:colorpicker_noneSelectedSummaryText="@string/no_color_selected"
+        app:colorpicker_selectNoneButtonText="@string/no_color"
         />
 
 </PreferenceScreen>
