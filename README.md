@@ -11,7 +11,7 @@ I couldn't find this combination of features in an existing library, which is wh
 * Alpha slider.
 * Text field to copy and paste hex color values.
 * Old and new colors displayed side by side.
-* Selection of "no color".
+* Optional selection of "no color".
 * Proper behavior when orientation changes.
 * Up-to-date design.
 
@@ -22,10 +22,13 @@ In addition, the Hue-Saturation picker...
 
 ## Using the Library
 
-The library is on JCenter so you should only need to add the following to your build.gradle:
+Add the library dependency to your app module's *build.gradle*:
 
-    compile 'com.rarepebble:colorpicker:1.0.0'
+    dependencies {
+        compile 'com.rarepebble:colorpicker:1.0.0'
+    }
 
+Add *jcenter()* to your repository list if it isn't there already.
 
 ## ColorPreference Usage
 
