@@ -32,8 +32,7 @@ Add *jcenter()* to your repository list if it isn't there already.
 
 ## ColorPreference Usage
 
-Add the *colorpicker* library to your project and add the *ColorPreference* to your preference
-screen xml:
+Add the *ColorPreference* to your preference screen xml. Don't forget the extra *xmlns:* declaration:
 
     <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -70,7 +69,7 @@ initial color with *setColor()* and retrieve the view's current color with *getC
     ...
     final int color = picker.getColor();
 
-Refer to the [ColorPreference source](colorpicker/src/main/java/com/rarepebble/colorpicker/ColorPreference.java)
+Refer to the [ColorPreference source](colorpicker/src/main/java/com/rarepebble/colorpicker/ColorPreference.java?ts=4)
 for a fuller example.
 
 ## Bugs
