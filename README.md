@@ -51,8 +51,8 @@ To use the "optional color" functionality, specify a button label for the "no co
         <com.rarepebble.colorpicker.ColorPreference
             android:key="myOptionalColor"
             android:title="@string/pref_optional_color"
-            app:colorpicker_noneSelectedSummaryText="@string/no_color_selected"
             app:colorpicker_selectNoneButtonText="@string/no_color"
+            app:colorpicker_noneSelectedSummaryText="@string/no_color_selected"
             />
 
 You can also specify some summary text to be shown when there is no color chosen, as in the example
@@ -61,8 +61,9 @@ here. The "No color" choice is saved by removing the saved preference, so use
 
 ## ColorPickerView Usage
 
-You can construct a *ColorPickerView* in the usual way, either in code or in a layout. Set the
-initial color with *setColor()* and retrieve the view's current color with *getColor()*:
+For many people, the *ColorPreference* will be all that's needed, but if you wish to use the
+*ColorPickerView* directly, it can be constructed in the usual way, either in code or in a layout.
+Set the initial color with *setColor()* and retrieve the view's current color with *getColor()*:
 
     final ColorPickerView picker = new ColorPickerView(getContext());
     picker.setColor(0xff12345);
