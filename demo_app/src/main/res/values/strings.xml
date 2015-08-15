@@ -6,4 +6,5 @@
     <string name="pref_optional_color">An optional color</string>
     <string name="no_color_selected">The user has chosen not to specify a color</string>
     <string name="no_color">No color</string>
+    <string name="pref_title_minimal">With no alpha or hex fields</string>
 </resources>

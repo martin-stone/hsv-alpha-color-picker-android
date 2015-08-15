@@ -59,6 +59,9 @@ You can also specify some summary text to be shown when there is no color chosen
 here. The "No color" choice is saved by removing the saved preference, so use
 *SharedPreference.contains("myOptionalColor")* to test for that.
 
+To omit the alpha slider or the hex text field, set the optional *colorpicker_showAlpha* or
+*colorpicker_showHex* attributes on the color preference.
+
 ## ColorPickerView Usage
 
 For many people, the *ColorPreference* will be all that's needed, but if you wish to use the
@@ -72,6 +75,8 @@ Set the initial color with *setColor()* and retrieve the view's current color wi
 
 Refer to the [ColorPreference source](colorpicker/src/main/java/com/rarepebble/colorpicker/ColorPreference.java?ts=4)
 for a fuller example.
+
+To hide the alpha or hex edit fields, use the *showAlpha()* or *showHex()* functions.
 
 ## Bugs
 

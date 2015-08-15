@@ -8,6 +8,8 @@
         <attr name="colorpicker_selectNoneButtonText" format="string" />
         <attr name="colorpicker_noneSelectedSummaryText" format="string" />
         <attr name="colorpicker_defaultColor" format="color"/>
+        <attr name="colorpicker_showAlpha" format="boolean"/>
+        <attr name="colorpicker_showHex" format="boolean"/>
     </declare-styleable>
 
 </resources>

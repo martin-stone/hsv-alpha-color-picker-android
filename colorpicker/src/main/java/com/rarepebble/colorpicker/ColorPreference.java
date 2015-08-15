@@ -31,6 +31,8 @@ public class ColorPreference extends DialogPreference {
 	private final String selectNoneButtonText;
 	private final Integer defaultColor;
 	private final String noneSelectedSummaryText;
+	private final boolean showAlpha;
+	private final boolean showHex;
 	private View thumbnail;
 
 	public ColorPreference(Context context) {
@@ -46,11 +48,15 @@ public class ColorPreference extends DialogPreference {
 			defaultColor = a.hasValue(R.styleable.ColorPreference_colorpicker_defaultColor)
 					? a.getColor(R.styleable.ColorPreference_colorpicker_defaultColor, Color.GRAY)
 					: null;
+			showAlpha = a.getBoolean(R.styleable.ColorPreference_colorpicker_showAlpha, true);
+			showHex = a.getBoolean(R.styleable.ColorPreference_colorpicker_showHex, true);
 		}
 		else {
 			selectNoneButtonText = null;
 			defaultColor = null;
 			noneSelectedSummaryText = null;
+			showAlpha = true;
+			showHex = true;
 		}
 	}
 
@@ -94,7 +100,10 @@ public class ColorPreference extends DialogPreference {
 	protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
 		super.onPrepareDialogBuilder(builder);
 		final ColorPickerView picker = new ColorPickerView(getContext());
+
 		picker.setColor(getPersistedInt(defaultColor == null ? Color.GRAY : defaultColor));
+		picker.showAlpha(showAlpha);
+		picker.showHex(showHex);
 		builder
 				.setTitle(null)
 				.setView(picker)

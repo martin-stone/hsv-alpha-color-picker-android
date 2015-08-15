@@ -19,11 +19,14 @@ package com.rarepebble.colorpicker;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
 public class ColorPickerView extends FrameLayout {
 
+	private final AlphaView alphaView;
+	private final EditText hexEdit;
 	private ObservableColor observableColor = new ObservableColor(0);
 	private final SwatchView swatchView;
 
@@ -44,10 +47,10 @@ public class ColorPickerView extends FrameLayout {
 		ValueView valueView = (ValueView)findViewById(R.id.valueView);
 		valueView.observeColor(observableColor);
 
-		AlphaView alphaView = (AlphaView)findViewById(R.id.alphaView);
+		alphaView = (AlphaView)findViewById(R.id.alphaView);
 		alphaView.observeColor(observableColor);
 
-		EditText hexEdit = (EditText)findViewById(R.id.hexEdit);
+		hexEdit = (EditText)findViewById(R.id.hexEdit);
 		HexEdit.setUpListeners(hexEdit, observableColor);
 
 		// We get all our state saved and restored for free,
@@ -61,5 +64,13 @@ public class ColorPickerView extends FrameLayout {
 	public void setColor(int color) {
 		swatchView.setOldColor(color);
 		observableColor.updateColor(color, null);
+	}
+
+	public void showAlpha(boolean showAlpha) {
+		alphaView.setVisibility(showAlpha ? View.VISIBLE : View.GONE);
+	}
+
+	public void showHex(boolean showHex) {
+		hexEdit.setVisibility(showHex ? View.VISIBLE : View.GONE);
 	}
 }

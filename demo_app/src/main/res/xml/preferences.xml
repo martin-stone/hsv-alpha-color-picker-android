@@ -16,4 +16,12 @@
         app:colorpicker_selectNoneButtonText="@string/no_color"
         />
 
+    <com.rarepebble.colorpicker.ColorPreference
+        android:key="opaquePreference"
+        android:title="@string/pref_title_minimal"
+        app:colorpicker_showAlpha="false"
+        app:colorpicker_showHex="false"
+        app:colorpicker_defaultColor="#0f0"
+        />
+
 </PreferenceScreen>
