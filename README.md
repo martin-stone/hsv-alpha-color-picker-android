@@ -46,7 +46,7 @@ Add the *ColorPreference* to your preference screen xml. Don't forget the extra 
 
     </PreferenceScreen>
 
-To use the "optional color" functionality, specify a button label for the "no colour" button:
+To use the "optional color" functionality, specify a button label for the "no color" button:
 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="myOptionalColor"
