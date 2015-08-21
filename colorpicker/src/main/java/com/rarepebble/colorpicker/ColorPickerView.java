@@ -27,7 +27,7 @@ public class ColorPickerView extends FrameLayout {
 
 	private final AlphaView alphaView;
 	private final EditText hexEdit;
-	private ObservableColor observableColor = new ObservableColor(0);
+	private final ObservableColor observableColor = new ObservableColor(0);
 	private final SwatchView swatchView;
 
 	public ColorPickerView(Context context) {

@@ -31,6 +31,7 @@ public abstract class SliderViewBase extends View {
 
 	private final Paint borderPaint;
 	private final Paint checkerPaint;
+	private final Rect viewRect = new Rect();
 	private int w;
 	private int h;
 	private final Path borderPath;
@@ -59,6 +60,7 @@ public abstract class SliderViewBase extends View {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		this.w = w;
 		this.h = h;
+		viewRect.set(0, 0, w, h);
 		float inset = borderPaint.getStrokeWidth() / 2;
 		borderPath.reset();
 		borderPath.addRect(new RectF(inset, inset, w - inset, h - inset), Path.Direction.CW);
@@ -97,7 +99,7 @@ public abstract class SliderViewBase extends View {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		canvas.drawPath(borderPath, checkerPaint);
-		canvas.drawBitmap(bitmap, null, new Rect(0, 0, w, h), null);
+		canvas.drawBitmap(bitmap, null, viewRect, null);
 		canvas.drawPath(borderPath, borderPaint);
 
 		canvas.save(Canvas.MATRIX_SAVE_FLAG);

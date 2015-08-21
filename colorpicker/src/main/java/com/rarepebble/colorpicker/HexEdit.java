@@ -20,7 +20,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-public class HexEdit {
+class HexEdit {
 
 	public static void setUpListeners(final EditText hexEdit, final ObservableColor observableColor) {
 

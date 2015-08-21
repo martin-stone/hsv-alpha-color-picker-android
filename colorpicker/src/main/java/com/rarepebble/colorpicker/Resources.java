@@ -26,11 +26,11 @@ import android.graphics.Shader;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
-public class Resources {
+class Resources {
 
-	public static final float LINE_WIDTH_DIP = 1.5f;
+	private static final float LINE_WIDTH_DIP = 1.5f;
 	private static final float POINTER_RADIUS_DIP = 7;
-	public static final int VIEW_OUTLINE_COLOR = 0xff808080;
+	private static final int VIEW_OUTLINE_COLOR = 0xff808080;
 
 	public static Paint makeLinePaint(Context context) {
 		Paint paint = new Paint();
@@ -58,7 +58,7 @@ public class Resources {
 		return pointerPath;
 	}
 
-	public static float dipToPixels(Context context, float dipValue) {
+	private static float dipToPixels(Context context, float dipValue) {
 		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
 		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
 	}

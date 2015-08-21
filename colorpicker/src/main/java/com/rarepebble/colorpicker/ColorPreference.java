@@ -82,11 +82,11 @@ public class ColorPreference extends DialogPreference {
 
 	private Integer getPersistedIntDefaultOrNull() {
 		return getSharedPreferences().contains(getKey())
-				? new Integer(getPersistedInt(Color.GRAY))
+				? Integer.valueOf(getPersistedInt(Color.GRAY))
 				: defaultColor;
 	}
 
-	void showColor(Integer color) {
+	private void showColor(Integer color) {
 		if (thumbnail != null) {
 			thumbnail.setVisibility(color == null ? View.GONE : View.VISIBLE);
 			thumbnail.findViewById(R.id.colorPreview).setBackgroundColor(color == null ? 0 : color);

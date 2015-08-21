@@ -36,11 +36,12 @@ public class HueSatView extends View implements ObservableColor.Observer {
 	private final Paint pointerPaint;
 	private final Path pointerPath;
 	private final Path borderPath;
+	private final Rect viewRect = new Rect();
 	private int w;
 	private int h;
 	private Bitmap bitmap;
 
-	private PointF pointer = new PointF();
+	private final PointF pointer = new PointF();
 	private ObservableColor observableColor = new ObservableColor(0);
 
 	public HueSatView(Context context) {
@@ -82,6 +83,7 @@ public class HueSatView extends View implements ObservableColor.Observer {
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		this.w = w;
 		this.h = h;
+		viewRect.set(0, 0, w, h);
 		float inset = borderPaint.getStrokeWidth() / 2;
 		makeBorderPath(borderPath, w, h, inset);
 
@@ -155,7 +157,7 @@ public class HueSatView extends View implements ObservableColor.Observer {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		canvas.drawBitmap(bitmap, null, new Rect(0, 0, w, h), null);
+		canvas.drawBitmap(bitmap, null, viewRect, null);
 		canvas.drawPath(borderPath, borderPaint);
 
 		canvas.save(Canvas.MATRIX_SAVE_FLAG|Canvas.CLIP_SAVE_FLAG);
