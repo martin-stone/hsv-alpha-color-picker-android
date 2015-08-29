@@ -90,6 +90,7 @@ public abstract class SliderViewBase extends View {
 				optimisePointerColor();
 				notifyListener(currentPos);
 				invalidate();
+				getParent().requestDisallowInterceptTouchEvent(true);
 				return true;
 		}
 		return super.onTouchEvent(event);

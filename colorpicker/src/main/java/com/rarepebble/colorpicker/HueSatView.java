@@ -117,6 +117,7 @@ public class HueSatView extends View implements ObservableColor.Observer {
 			case MotionEvent.ACTION_MOVE:
 				clamp(pointer, event.getX(), event.getY(), false);
 				update();
+				getParent().requestDisallowInterceptTouchEvent(true);
 				return true;
 		}
 		return super.onTouchEvent(event);
