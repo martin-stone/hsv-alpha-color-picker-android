@@ -4,7 +4,7 @@
     <declare-styleable name="SwatchView">
         <attr name="radialMargin" format="dimension" />
     </declare-styleable>
-    <declare-styleable name="ColorPreference">
+    <declare-styleable name="ColorPicker">
         <attr name="colorpicker_selectNoneButtonText" format="string" />
         <attr name="colorpicker_noneSelectedSummaryText" format="string" />
         <attr name="colorpicker_defaultColor" format="color"/>

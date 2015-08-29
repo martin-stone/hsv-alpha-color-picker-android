@@ -73,10 +73,14 @@ Set the initial color with *setColor()* and retrieve the view's current color wi
     ...
     final int color = picker.getColor();
 
+If you wish to set the initial color and current color independently, use *setOriginalColor()* and
+*setCurrentColor()* functions.
+
 Refer to the [ColorPreference source](colorpicker/src/main/java/com/rarepebble/colorpicker/ColorPreference.java?ts=4)
 for a fuller example.
 
-To hide the alpha or hex edit fields, use the *showAlpha()* or *showHex()* functions.
+To hide the alpha or hex edit fields, use the *showAlpha()* or *showHex()* functions, or use the
+*colorpicker_showAlpha* and *colorpicker_showHex* attributes in XML.
 
 ## Bugs
 

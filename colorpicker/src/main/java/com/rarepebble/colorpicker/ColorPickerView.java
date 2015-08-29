@@ -17,6 +17,7 @@
 package com.rarepebble.colorpicker;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,8 +54,18 @@ public class ColorPickerView extends FrameLayout {
 		hexEdit = (EditText)findViewById(R.id.hexEdit);
 		HexEdit.setUpListeners(hexEdit, observableColor);
 
+		applyAttributes(attrs);
+
 		// We get all our state saved and restored for free,
 		// thanks to the EditText and its listeners!
+	}
+
+	void applyAttributes(AttributeSet attrs) {
+		if (attrs != null) {
+			TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPicker, 0, 0);
+			showAlpha(a.getBoolean(R.styleable.ColorPicker_colorpicker_showAlpha, true));
+			showHex(a.getBoolean(R.styleable.ColorPicker_colorpicker_showHex, true));
+		}
 	}
 
 	/** Returns the color selected by the user */

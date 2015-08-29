@@ -42,14 +42,14 @@ public class ColorPreference extends DialogPreference {
 		super(context, attrs);
 
 		if (attrs != null) {
-			TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPreference, 0, 0);
-			selectNoneButtonText = a.getString(R.styleable.ColorPreference_colorpicker_selectNoneButtonText);
-			noneSelectedSummaryText = a.getString(R.styleable.ColorPreference_colorpicker_noneSelectedSummaryText);
-			defaultColor = a.hasValue(R.styleable.ColorPreference_colorpicker_defaultColor)
-					? a.getColor(R.styleable.ColorPreference_colorpicker_defaultColor, Color.GRAY)
+			TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPicker, 0, 0);
+			selectNoneButtonText = a.getString(R.styleable.ColorPicker_colorpicker_selectNoneButtonText);
+			noneSelectedSummaryText = a.getString(R.styleable.ColorPicker_colorpicker_noneSelectedSummaryText);
+			defaultColor = a.hasValue(R.styleable.ColorPicker_colorpicker_defaultColor)
+					? a.getColor(R.styleable.ColorPicker_colorpicker_defaultColor, Color.GRAY)
 					: null;
-			showAlpha = a.getBoolean(R.styleable.ColorPreference_colorpicker_showAlpha, true);
-			showHex = a.getBoolean(R.styleable.ColorPreference_colorpicker_showHex, true);
+			showAlpha = a.getBoolean(R.styleable.ColorPicker_colorpicker_showAlpha, true);
+			showHex = a.getBoolean(R.styleable.ColorPicker_colorpicker_showHex, true);
 		}
 		else {
 			selectNoneButtonText = null;
