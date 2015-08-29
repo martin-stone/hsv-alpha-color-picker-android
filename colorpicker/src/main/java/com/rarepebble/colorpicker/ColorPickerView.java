@@ -57,12 +57,24 @@ public class ColorPickerView extends FrameLayout {
 		// thanks to the EditText and its listeners!
 	}
 
+	/** Returns the color selected by the user */
 	public int getColor() {
 		return observableColor.getColor();
 	}
 
+	/** Sets the original color swatch and the current color to the specified value. */
 	public void setColor(int color) {
-		swatchView.setOldColor(color);
+		setOriginalColor(color);
+		setCurrentColor(color);
+	}
+
+	/** Sets the original color swatch without changing the current color. */
+	public void setOriginalColor(int color) {
+		swatchView.setOriginalColor(color);
+	}
+
+	/** Updates the current color without changing the original color swatch. */
+	public void setCurrentColor(int color) {
 		observableColor.updateColor(color, null);
 	}
 

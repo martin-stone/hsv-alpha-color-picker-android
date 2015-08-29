@@ -61,7 +61,7 @@ public class SwatchView extends View implements ObservableColor.Observer {
 		newFillPath = new Path();
 	}
 
-	void setOldColor(int color) {
+	void setOriginalColor(int color) {
 		oldFillPaint.setColor(color);
 		invalidate();
 	}
