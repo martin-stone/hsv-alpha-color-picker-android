@@ -58,7 +58,7 @@ class Resources {
 		return pointerPath;
 	}
 
-	private static float dipToPixels(Context context, float dipValue) {
+	public static float dipToPixels(Context context, float dipValue) {
 		DisplayMetrics metrics = context.getResources().getDisplayMetrics();
 		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dipValue, metrics);
 	}

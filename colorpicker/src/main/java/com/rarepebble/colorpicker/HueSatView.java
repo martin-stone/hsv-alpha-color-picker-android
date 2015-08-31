@@ -28,9 +28,8 @@ import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 
-public class HueSatView extends View implements ObservableColor.Observer {
+public class HueSatView extends SquareView implements ObservableColor.Observer {
 
 	private final Paint borderPaint;
 	private final Paint pointerPaint;
@@ -56,6 +55,7 @@ public class HueSatView extends View implements ObservableColor.Observer {
 		pointerPaint.setColor(0xff000000);
 		pointerPath = Resources.makePointerPath(context);
 		borderPath = new Path();
+		bitmap = makeBitmap(1);
 	}
 
 	public void observeColor(ObservableColor observableColor) {
@@ -68,15 +68,6 @@ public class HueSatView extends View implements ObservableColor.Observer {
 		setPointer(pointer, observableColor.getHue(), observableColor.getSat(), w);
 		optimisePointerColor();
 		invalidate();
-	}
-
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		// Constrain to square
-		int w = MeasureSpec.getSize(widthMeasureSpec);
-		int h = MeasureSpec.getSize(heightMeasureSpec);
-		w = h = Math.min(w, h);
-		setMeasuredDimension(w, h);
 	}
 
 	@Override
@@ -149,12 +140,12 @@ public class HueSatView extends View implements ObservableColor.Observer {
 		return !outside;
 	}
 
-
 	private void optimisePointerColor() {
 		pointerPaint.setColor(
 				observableColor.getLightnessWithValue(1) > 0.5
 				? 0xff000000 : 0xffffffff);
 	}
+
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);

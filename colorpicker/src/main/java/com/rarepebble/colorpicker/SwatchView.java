@@ -25,7 +25,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class SwatchView extends View implements ObservableColor.Observer {
+public class SwatchView extends SquareView implements ObservableColor.Observer {
 
 	private final Paint borderPaint;
 	private final Path borderPath;
@@ -74,15 +74,6 @@ public class SwatchView extends View implements ObservableColor.Observer {
 	public void updateColor(ObservableColor observableColor) {
 		newFillPaint.setColor(observableColor.getColor());
 		invalidate();
-	}
-
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		// Constrain to square
-		int w = MeasureSpec.getSize(widthMeasureSpec);
-		int h = MeasureSpec.getSize(heightMeasureSpec);
-		w = h = Math.min(w, h);
-		setMeasuredDimension(w, h);
 	}
 
 	@Override

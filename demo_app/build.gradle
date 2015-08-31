@@ -4,7 +4,7 @@ android {
     compileSdkVersion 22
     buildToolsVersion "21.1.2"
     defaultConfig {
-        applicationId "com.rarepebble.colorpicker"
+        applicationId 'com.rarepebble.colorpickerdemo'
         minSdkVersion 11
         targetSdkVersion 22
         versionCode 10300

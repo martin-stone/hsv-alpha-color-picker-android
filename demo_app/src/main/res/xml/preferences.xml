@@ -24,4 +24,12 @@
         app:colorpicker_defaultColor="#0f0"
         />
 
+    <PreferenceScreen
+        android:title="@string/pref_show_view_usage_demo">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="com.rarepebble.colorpickerdemo.ViewDemoActivity"
+            android:targetPackage="com.rarepebble.colorpickerdemo" />
+    </PreferenceScreen>
+
 </PreferenceScreen>
