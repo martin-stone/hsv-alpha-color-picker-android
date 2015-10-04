@@ -18,7 +18,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="@dimen/margin"
@@ -26,20 +26,21 @@
     >
 
     <FrameLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         >
 
         <com.rarepebble.colorpicker.SwatchView
             android:id="@+id/swatchView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:radialMargin="@dimen/margin"
             />
 
         <com.rarepebble.colorpicker.HueSatView
             android:id="@+id/hueSatView"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             />
     </FrameLayout>

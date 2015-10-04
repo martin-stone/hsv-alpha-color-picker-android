@@ -22,15 +22,16 @@ class SquareView extends View {
 		final int modeW = MeasureSpec.getMode(widthMeasureSpec);
 		final int modeH = MeasureSpec.getMode(heightMeasureSpec);
 		int size = minSizePx;
-		if (modeW == MeasureSpec.EXACTLY) {
-			size = w;
-		}
-		else if (modeH == MeasureSpec.EXACTLY) {
+		if (modeW == MeasureSpec.UNSPECIFIED) {
 			size = h;
 		}
-		else if (modeW == MeasureSpec.AT_MOST && modeH == MeasureSpec.AT_MOST) {
+		else if (modeH == MeasureSpec.UNSPECIFIED) {
+			size = w;
+		}
+		else {
 			size = Math.min(w, h);
 		}
+		size = Math.max(size, minSizePx);
 		setMeasuredDimension(size, size);
 	}
 }
