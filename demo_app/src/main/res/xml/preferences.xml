@@ -18,6 +18,14 @@
 
     <com.rarepebble.colorpicker.ColorPreference
         android:key="opaquePreference"
+        android:title="@string/pref_no_alpha"
+        app:colorpicker_showAlpha="false"
+        app:colorpicker_defaultColor="#00f"
+        />
+
+
+    <com.rarepebble.colorpicker.ColorPreference
+        android:key="opaquePreferenceNoHex"
         android:title="@string/pref_title_minimal"
         app:colorpicker_showAlpha="false"
         app:colorpicker_showHex="false"

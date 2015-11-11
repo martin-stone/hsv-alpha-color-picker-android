@@ -91,6 +91,7 @@ public class ColorPickerView extends FrameLayout {
 
 	public void showAlpha(boolean showAlpha) {
 		alphaView.setVisibility(showAlpha ? View.VISIBLE : View.GONE);
+		HexEdit.setShowAlphaDigits(hexEdit, showAlpha);
 	}
 
 	public void showHex(boolean showHex) {
