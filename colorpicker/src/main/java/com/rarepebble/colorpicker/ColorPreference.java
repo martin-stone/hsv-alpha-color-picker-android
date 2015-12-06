@@ -111,16 +111,20 @@ public class ColorPreference extends DialogPreference {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						final int color = picker.getColor();
-						persistInt(color);
-						showColor(color);
+						if (callChangeListener(color)) {
+							persistInt(color);
+							showColor(color);
+						}
 					}
 				});
 		if (selectNoneButtonText != null) {
 			builder.setNeutralButton(selectNoneButtonText, new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					removeSetting();
-					showColor(null);
+					if (callChangeListener(null)) {
+						removeSetting();
+						showColor(null);
+					}
 				}
 			});
 		}
