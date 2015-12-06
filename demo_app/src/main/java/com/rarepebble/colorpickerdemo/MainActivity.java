@@ -24,19 +24,6 @@ public class MainActivity extends Activity {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.preferences);
-
-			demonstrateChangeListener();
-		}
-
-		private void demonstrateChangeListener() {
-			findPreference("optionalColor").setOnPreferenceChangeListener(
-					new Preference.OnPreferenceChangeListener() {
-						@Override
-						public boolean onPreferenceChange(Preference preference, Object newValue) {
-							Toast.makeText(getActivity(), String.format("%x", newValue), Toast.LENGTH_SHORT).show();
-							return true;
-						}
-					});
 		}
 	}
 }
