@@ -31,6 +31,7 @@ public class ColorPreference extends DialogPreference {
 	private final String selectNoneButtonText;
 	private final Integer defaultColor;
 	private final String noneSelectedSummaryText;
+	private final CharSequence summaryText;
 	private final boolean showAlpha;
 	private final boolean showHex;
 	private View thumbnail;
@@ -40,6 +41,7 @@ public class ColorPreference extends DialogPreference {
 	}
 	public ColorPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		summaryText = super.getSummary();
 
 		if (attrs != null) {
 			TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPicker, 0, 0);
@@ -92,7 +94,7 @@ public class ColorPreference extends DialogPreference {
 			thumbnail.findViewById(R.id.colorPreview).setBackgroundColor(color == null ? 0 : color);
 		}
 		if (noneSelectedSummaryText != null) {
-			setSummary(color == null ? noneSelectedSummaryText : null);
+			setSummary(color == null ? noneSelectedSummaryText : summaryText);
 		}
 	}
 

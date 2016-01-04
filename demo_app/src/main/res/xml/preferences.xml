@@ -13,12 +13,14 @@
         android:key="optionalColor"
         android:title="@string/pref_optional_color"
         app:colorpicker_noneSelectedSummaryText="@string/no_color_selected"
+        android:summary="@string/pref_optional_color_summary"
         app:colorpicker_selectNoneButtonText="@string/no_color"
         />
 
     <com.rarepebble.colorpicker.ColorPreference
         android:key="opaquePreference"
         android:title="@string/pref_no_alpha"
+        android:summary="@string/pref_no_alpha_summary"
         app:colorpicker_showAlpha="false"
         app:colorpicker_defaultColor="#00f"
         />
@@ -27,6 +29,7 @@
     <com.rarepebble.colorpicker.ColorPreference
         android:key="opaquePreferenceNoHex"
         android:title="@string/pref_title_minimal"
+        android:summary="@string/pref_title_minimal_summary"
         app:colorpicker_showAlpha="false"
         app:colorpicker_showHex="false"
         app:colorpicker_defaultColor="#0f0"

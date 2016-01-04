@@ -4,9 +4,12 @@
 
     <string name="pref_title">An example color</string>
     <string name="pref_optional_color">An optional color</string>
+    <string name="pref_optional_color_summary">Select \"No color\" to leave blank</string>
     <string name="no_color_selected">The user has chosen not to specify a color</string>
     <string name="no_color">No color</string>
     <string name="pref_no_alpha">With no alpha</string>
+    <string name="pref_no_alpha_summary">app:colorpicker_showAlpha=\"false\"</string>
     <string name="pref_title_minimal">With no alpha or hex fields</string>
+    <string name="pref_title_minimal_summary">app:colorpicker_showAlpha=\"false\" and app:colorpicker_showHex=\"false\"</string>
     <string name="pref_show_view_usage_demo">Show view usage demo</string>
 </resources>
