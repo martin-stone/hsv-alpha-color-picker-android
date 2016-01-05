@@ -114,8 +114,7 @@ public class ColorPreference extends DialogPreference {
 					public void onClick(DialogInterface dialog, int which) {
 						final int color = picker.getColor();
 						if (callChangeListener(color)) {
-							persistInt(color);
-							showColor(color);
+							setColor(color);
 						}
 					}
 				});
@@ -124,8 +123,7 @@ public class ColorPreference extends DialogPreference {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					if (callChangeListener(null)) {
-						removeSetting();
-						showColor(null);
+						setColor(null);
 					}
 				}
 			});
@@ -133,9 +131,25 @@ public class ColorPreference extends DialogPreference {
 	}
 
 	private void removeSetting() {
-		getSharedPreferences()
-				.edit()
-				.remove(getKey())
-				.commit();
+		if (shouldPersist()) {
+			getSharedPreferences()
+					.edit()
+					.remove(getKey())
+					.commit();
+		}
+	}
+
+	public void setColor(Integer color) {
+		if (color == null) {
+			removeSetting();
+		}
+		else {
+			persistInt(color);
+		}
+		showColor(color);
+	}
+
+	public Integer getColor() {
+		return getPersistedIntDefaultOrNull();
 	}
 }
