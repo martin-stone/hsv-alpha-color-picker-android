@@ -2,9 +2,7 @@ package com.rarepebble.colorpickerdemo;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
