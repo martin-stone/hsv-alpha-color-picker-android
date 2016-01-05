@@ -7,8 +7,8 @@ android {
         applicationId 'com.rarepebble.colorpickerdemo'
         minSdkVersion 11
         targetSdkVersion 22
-        versionCode 10502
-        versionName '1.5.2'
+        versionCode 10600
+        versionName '1.6.0'
     }
     buildTypes {
         release {

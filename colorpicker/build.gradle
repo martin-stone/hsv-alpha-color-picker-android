@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/martin-stone/hsv-alpha-color-picker-android'
     gitUrl = 'https://github.com/martin-stone/hsv-alpha-color-picker-android.git'
 
-    libraryVersion = '1.5.2'
+    libraryVersion = '1.6.0'
 
     developerId = 'martin-stone'
     developerName = 'Martin Stone'
@@ -30,8 +30,8 @@ android {
     defaultConfig {
         minSdkVersion 11
         targetSdkVersion 22
-        versionCode 10502
-        versionName '1.5.2'
+        versionCode 10600
+        versionName '1.6.0'
     }
     buildTypes {
         release {
