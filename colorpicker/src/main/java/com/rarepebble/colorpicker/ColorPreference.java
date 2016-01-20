@@ -89,12 +89,13 @@ public class ColorPreference extends DialogPreference {
 	}
 
 	private void showColor(Integer color) {
+		Integer thumbColor = color == null ? defaultColor : color;
 		if (thumbnail != null) {
-			thumbnail.setVisibility(color == null ? View.GONE : View.VISIBLE);
-			thumbnail.findViewById(R.id.colorPreview).setBackgroundColor(color == null ? 0 : color);
+			thumbnail.setVisibility(thumbColor == null ? View.GONE : View.VISIBLE);
+			thumbnail.findViewById(R.id.colorPreview).setBackgroundColor(thumbColor == null ? 0 : thumbColor);
 		}
 		if (noneSelectedSummaryText != null) {
-			setSummary(color == null ? noneSelectedSummaryText : summaryText);
+			setSummary(thumbColor == null ? noneSelectedSummaryText : summaryText);
 		}
 	}
 
