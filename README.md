@@ -23,17 +23,17 @@ In addition, the Hue-Saturation picker...
 ## Using the Library
 
 Add the library dependency to your app module's *build.gradle*:
-
+```groovy
     dependencies {
         compile 'com.rarepebble:colorpicker:1.6.0'
     }
-
+```
 Add *jcenter()* to your repository list if it isn't there already.
 
 ## ColorPreference Usage
 
 Add the *ColorPreference* to your preference screen xml. Don't forget the extra *xmlns:* declaration:
-
+```xml
     <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -45,16 +45,16 @@ Add the *ColorPreference* to your preference screen xml. Don't forget the extra 
             />
 
     </PreferenceScreen>
-
+```
 To use the "optional color" functionality, specify a button label for the "no color" button:
-
+```xml
         <com.rarepebble.colorpicker.ColorPreference
             android:key="myOptionalColor"
             android:title="@string/pref_optional_color"
             app:colorpicker_selectNoneButtonText="@string/no_color"
             app:colorpicker_noneSelectedSummaryText="@string/no_color_selected"
             />
-
+```
 You can also specify some summary text to be shown when there is no color chosen, as in the example
 here. The "No color" choice is saved by removing the saved preference, so use
 *SharedPreference.contains("myOptionalColor")* to test for that.
@@ -67,12 +67,12 @@ To omit the alpha slider or the hex text field, set the optional *colorpicker_sh
 For many people, the *ColorPreference* will be all that's needed, but if you wish to use the
 *ColorPickerView* directly, it can be constructed in the usual way, either in code or in a layout.
 Set the initial color with *setColor()* and retrieve the view's current color with *getColor()*:
-
+```java
     final ColorPickerView picker = new ColorPickerView(getContext());
     picker.setColor(0xff12345);
     ...
     final int color = picker.getColor();
-
+```
 If you wish to set the initial color and current color independently, use *setOriginalColor()* and
 *setCurrentColor()* functions.
 
