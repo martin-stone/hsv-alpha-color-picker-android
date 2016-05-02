@@ -24,8 +24,6 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
-import com.rarepebble.colorpicker.interfaces.IColorObserver;
-
 public class SwatchView extends SquareView implements IColorObserver
 {
 

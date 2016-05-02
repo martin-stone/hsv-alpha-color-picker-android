@@ -21,8 +21,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
-import com.rarepebble.colorpicker.interfaces.IColorObserver;
-
 public class ValueView extends SliderViewBase implements IColorObserver
 {
 

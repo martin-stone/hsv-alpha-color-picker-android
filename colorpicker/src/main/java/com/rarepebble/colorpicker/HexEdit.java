@@ -22,8 +22,6 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
-import com.rarepebble.colorpicker.interfaces.IColorObserver;
-
 class HexEdit {
 
 	private static InputFilter[] withoutAlphaDigits = {new ColorPasteLengthFilter()};

@@ -24,8 +24,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
-import com.rarepebble.colorpicker.interfaces.IColorObserver;
-
 public class ColorPickerView extends FrameLayout {
 
 	private final AlphaView alphaView;
@@ -97,11 +95,6 @@ public class ColorPickerView extends FrameLayout {
 	}
 
 	public void addColorObserver(IColorObserver observer)
-	{
-		observableColor.addObserver(observer);
-	}
-
-	public void removeColorObserver(IColorObserver observer)
 	{
 		observableColor.addObserver(observer);
 	}

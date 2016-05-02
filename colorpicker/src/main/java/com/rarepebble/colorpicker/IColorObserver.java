@@ -1,6 +1,4 @@
-package com.rarepebble.colorpicker.interfaces;
-
-import com.rarepebble.colorpicker.ObservableColor;
+package com.rarepebble.colorpicker;
 
 /**
  * Created by flisar on 02.05.2016.

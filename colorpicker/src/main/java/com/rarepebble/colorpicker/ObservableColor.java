@@ -18,8 +18,6 @@ package com.rarepebble.colorpicker;
 
 import android.graphics.Color;
 
-import com.rarepebble.colorpicker.interfaces.IColorObserver;
-
 import java.util.ArrayList;
 import java.util.List;
 
