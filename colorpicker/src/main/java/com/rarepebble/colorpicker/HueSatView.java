@@ -29,7 +29,10 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class HueSatView extends SquareView implements ObservableColor.Observer {
+import com.rarepebble.colorpicker.interfaces.IColorObserver;
+
+public class HueSatView extends SquareView implements IColorObserver
+{
 
 	private final Paint borderPaint;
 	private final Paint pointerPaint;

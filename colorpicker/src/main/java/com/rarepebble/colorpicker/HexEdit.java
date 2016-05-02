@@ -22,6 +22,8 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
+import com.rarepebble.colorpicker.interfaces.IColorObserver;
+
 class HexEdit {
 
 	private static InputFilter[] withoutAlphaDigits = {new ColorPasteLengthFilter()};
@@ -29,7 +31,7 @@ class HexEdit {
 
 	public static void setUpListeners(final EditText hexEdit, final ObservableColor observableColor) {
 
-		class MultiObserver implements ObservableColor.Observer, TextWatcher {
+		class MultiObserver implements IColorObserver, TextWatcher {
 
 			@Override
 			public void updateColor(ObservableColor observableColor) {

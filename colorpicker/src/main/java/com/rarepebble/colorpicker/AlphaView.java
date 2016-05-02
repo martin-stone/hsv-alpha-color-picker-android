@@ -20,7 +20,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 
-public class AlphaView extends SliderViewBase implements ObservableColor.Observer {
+import com.rarepebble.colorpicker.interfaces.IColorObserver;
+
+public class AlphaView extends SliderViewBase implements IColorObserver
+{
 
 	private ObservableColor observableColor = new ObservableColor(0);
 
