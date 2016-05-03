@@ -29,7 +29,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class HueSatView extends SquareView implements IColorObserver
+public class HueSatView extends SquareView implements ColorObserver
 {
 
 	private final Paint borderPaint;

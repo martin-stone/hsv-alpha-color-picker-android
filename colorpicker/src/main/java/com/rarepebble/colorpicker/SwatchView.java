@@ -24,7 +24,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 
-public class SwatchView extends SquareView implements IColorObserver
+public class SwatchView extends SquareView implements ColorObserver
 {
 
 	private final Paint borderPaint;

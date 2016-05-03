@@ -94,8 +94,7 @@ public class ColorPickerView extends FrameLayout {
 		HexEdit.setShowAlphaDigits(hexEdit, showAlpha);
 	}
 
-	public void addColorObserver(IColorObserver observer)
-	{
+	public void addColorObserver(ColorObserver observer) {
 		observableColor.addObserver(observer);
 	}
 

@@ -29,7 +29,7 @@ class HexEdit {
 
 	public static void setUpListeners(final EditText hexEdit, final ObservableColor observableColor) {
 
-		class MultiObserver implements IColorObserver, TextWatcher {
+		class MultiObserver implements ColorObserver, TextWatcher {
 
 			@Override
 			public void updateColor(ObservableColor observableColor) {
