@@ -94,6 +94,10 @@ public class ColorPickerView extends FrameLayout {
 		HexEdit.setShowAlphaDigits(hexEdit, showAlpha);
 	}
 
+	public void addColorObserver(ColorObserver observer) {
+		observableColor.addObserver(observer);
+	}
+
 	public void showHex(boolean showHex) {
 		hexEdit.setVisibility(showHex ? View.VISIBLE : View.GONE);
 	}

@@ -21,16 +21,12 @@ import android.graphics.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-class ObservableColor {
-
-	public interface Observer {
-		void updateColor(ObservableColor observableColor);
-	}
+public class ObservableColor {
 
 	// Store as HSV & A, otherwise round-trip to int causes color drift.
 	private final float[] hsv = {0, 0, 0};
 	private int alpha;
-	private final List<Observer> observers = new ArrayList<Observer>();
+	private final List<ColorObserver> observers = new ArrayList<ColorObserver>();
 
 	ObservableColor(int color) {
 		Color.colorToHSV(color, hsv);
@@ -73,34 +69,34 @@ class ObservableColor {
 		return (Color.red(color) * 0.2126f + Color.green(color) * 0.7152f + Color.blue(color) * 0.0722f)/0xff;
 	}
 
-	void addObserver(Observer observer) {
+	public void addObserver(ColorObserver observer) {
 		observers.add(observer);
 	}
 
-	public void updateHueSat(float hue, float sat, Observer sender) {
+	public void updateHueSat(float hue, float sat, ColorObserver sender) {
 		hsv[0] = hue;
 		hsv[1] = sat;
 		notifyOtherObservers(sender);
 	}
 
-	public void updateValue(float value, Observer sender) {
+	public void updateValue(float value, ColorObserver sender) {
 		hsv[2] = value;
 		notifyOtherObservers(sender);
 	}
 
-	public void updateAlpha(int alpha, Observer sender) {
+	public void updateAlpha(int alpha, ColorObserver sender) {
 		this.alpha = alpha;
 		notifyOtherObservers(sender);
 	}
 
-	public void updateColor(int color, Observer sender) {
+	public void updateColor(int color, ColorObserver sender) {
 		Color.colorToHSV(color, hsv);
 		alpha = Color.alpha(color);
 		notifyOtherObservers(sender);
 	}
 
-	private void notifyOtherObservers(Observer sender) {
-		for (Observer observer : observers) {
+	private void notifyOtherObservers(ColorObserver sender) {
+		for (ColorObserver observer : observers) {
 			if (observer != sender) {
 				observer.updateColor(this);
 			}

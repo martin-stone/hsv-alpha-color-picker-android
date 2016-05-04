@@ -20,7 +20,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.AttributeSet;
 
-public class AlphaView extends SliderViewBase implements ObservableColor.Observer {
+public class AlphaView extends SliderViewBase implements ColorObserver
+{
 
 	private ObservableColor observableColor = new ObservableColor(0);
 
