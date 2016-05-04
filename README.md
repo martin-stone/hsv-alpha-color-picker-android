@@ -25,7 +25,7 @@ In addition, the Hue-Saturation picker...
 Add the library dependency to your app module's *build.gradle*:
 ```groovy
     dependencies {
-        compile 'com.rarepebble:colorpicker:1.6.0'
+        compile 'com.rarepebble:colorpicker:1.7.0'
     }
 ```
 Add *jcenter()* to your repository list if it isn't there already.
