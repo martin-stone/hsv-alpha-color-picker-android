@@ -17,5 +17,5 @@
 package com.rarepebble.colorpicker;
 
 public interface ColorObserver {
-    void updateColor(ObservableColor observableColor);
+	void updateColor(ObservableColor observableColor);
 }

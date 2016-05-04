@@ -21,8 +21,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.AttributeSet;
 
-public class ValueView extends SliderViewBase implements ColorObserver
-{
+public class ValueView extends SliderViewBase implements ColorObserver {
 
 	private ObservableColor observableColor = new ObservableColor(0);
 
