@@ -28,13 +28,13 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 public class ColorPreference extends DialogPreference {
-	private final String selectNoneButtonText;
-	private final Integer defaultColor;
-	private final String noneSelectedSummaryText;
-	private final CharSequence summaryText;
-	private final boolean showAlpha;
-	private final boolean showHex;
-	private View thumbnail;
+	protected final String selectNoneButtonText;
+	protected Integer defaultColor;
+	protected final String noneSelectedSummaryText;
+	protected final CharSequence summaryText;
+	protected final boolean showAlpha;
+	protected final boolean showHex;
+	protected View thumbnail;
 
 	public ColorPreference(Context context) {
 		this(context, null);
