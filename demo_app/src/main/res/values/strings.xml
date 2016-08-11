@@ -18,4 +18,5 @@
     <string name="pref_title_minimal">With no alpha or hex fields</string>
     <string name="pref_title_minimal_summary">app:colorpicker_showAlpha=\"false\" and app:colorpicker_showHex=\"false\"</string>
     <string name="pref_show_view_usage_demo">Show view usage demo</string>
+    <string name="pref_reset_to_defaults">Reset all to default</string>
 </resources>

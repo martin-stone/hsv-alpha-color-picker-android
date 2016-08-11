@@ -23,13 +23,14 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
 public class ColorPreference extends DialogPreference {
 	private final String selectNoneButtonText;
-	private final Integer defaultColor;
+	private Integer defaultColor;
 	private final String noneSelectedSummaryText;
 	private final CharSequence summaryText;
 	private final boolean showAlpha;
@@ -47,9 +48,9 @@ public class ColorPreference extends DialogPreference {
 			TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPicker, 0, 0);
 			selectNoneButtonText = a.getString(R.styleable.ColorPicker_colorpicker_selectNoneButtonText);
 			noneSelectedSummaryText = a.getString(R.styleable.ColorPicker_colorpicker_noneSelectedSummaryText);
-			defaultColor = a.hasValue(R.styleable.ColorPicker_colorpicker_defaultColor)
-					? a.getColor(R.styleable.ColorPicker_colorpicker_defaultColor, Color.GRAY)
-					: null;
+//			defaultColor = a.hasValue(R.styleable.ColorPicker_colorpicker_defaultColor)
+//					? a.getColor(R.styleable.ColorPicker_colorpicker_defaultColor, Color.GRAY)
+//					: null;
 			showAlpha = a.getBoolean(R.styleable.ColorPicker_colorpicker_showAlpha, true);
 			showHex = a.getBoolean(R.styleable.ColorPicker_colorpicker_showHex, true);
 		}
@@ -68,6 +69,37 @@ public class ColorPreference extends DialogPreference {
 		showColor(getPersistedIntDefaultOrNull());
 		// Only call after showColor sets any summary text:
 		super.onBindView(view);
+	}
+
+	@Override
+	protected Object onGetDefaultValue(TypedArray a, int index) {
+		if (a.peekValue(index).type == TypedValue.TYPE_STRING) {
+			return Color.parseColor(standardiseColorDigits(a.getString(index)));
+		}
+		else {
+			return a.getColor(index, Color.GRAY);
+		}
+	}
+
+	private static String standardiseColorDigits(String s) {
+		if (s.charAt(0) == '#' && s.length() <= "#argb".length()) {
+			// Convert #[a]rgb to #[aa]rrggbb
+			String ss = "#";
+			for (int i = 1; i < s.length(); ++i) {
+				ss += s.charAt(i);
+				ss += s.charAt(i);
+			}
+			return ss;
+		}
+		else {
+			return s;
+		}
+	}
+
+	@Override
+	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+		defaultColor = (Integer)defaultValue;
+		setColor(restorePersistedValue ? getColor() : defaultColor);
 	}
 
 	private View addThumbnail(View view) {

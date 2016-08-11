@@ -2,6 +2,7 @@ package com.rarepebble.colorpickerdemo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceFragment;
 
 public class MainActivity extends Activity {
@@ -22,6 +23,15 @@ public class MainActivity extends Activity {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			addPreferencesFromResource(R.xml.preferences);
+
+			findPreference("resetButton").setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					getPreferenceManager().getDefaultSharedPreferences(getActivity()).edit().clear().commit();
+					getActivity().recreate();
+					return true;
+				}
+			});
 		}
 	}
 }

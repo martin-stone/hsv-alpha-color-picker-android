@@ -6,7 +6,7 @@
     <com.rarepebble.colorpicker.ColorPreference
         android:key="simplePreference"
         android:title="@string/pref_title"
-        app:colorpicker_defaultColor="#f00"
+        android:defaultValue="#f00"
         />
 
     <com.rarepebble.colorpicker.ColorPreference
@@ -21,7 +21,7 @@
         android:key="optionalColorWithDefault"
         android:title="@string/pref_default_color"
         android:summary="@string/pref_default_color_summary"
-        app:colorpicker_defaultColor="#f0f"
+        android:defaultValue="#f0f"
         app:colorpicker_selectNoneButtonText="@string/default_color"
         />
 
@@ -30,7 +30,7 @@
         android:title="@string/pref_no_alpha"
         android:summary="@string/pref_no_alpha_summary"
         app:colorpicker_showAlpha="false"
-        app:colorpicker_defaultColor="#00f"
+        android:defaultValue="#00f"
         />
 
 
@@ -40,7 +40,7 @@
         android:summary="@string/pref_title_minimal_summary"
         app:colorpicker_showAlpha="false"
         app:colorpicker_showHex="false"
-        app:colorpicker_defaultColor="#0f0"
+        android:defaultValue="#0f0"
         />
 
     <PreferenceScreen
@@ -50,5 +50,8 @@
             android:targetClass="com.rarepebble.colorpickerdemo.ViewDemoActivity"
             android:targetPackage="com.rarepebble.colorpickerdemo" />
     </PreferenceScreen>
+
+    <Preference android:title="@string/pref_reset_to_defaults"
+                android:key="resetButton"/>
 
 </PreferenceScreen>
