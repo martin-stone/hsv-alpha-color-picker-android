@@ -51,7 +51,4 @@
             android:targetPackage="com.rarepebble.colorpickerdemo" />
     </PreferenceScreen>
 
-    <Preference android:title="@string/pref_reset_to_defaults"
-                android:key="resetButton"/>
-
 </PreferenceScreen>

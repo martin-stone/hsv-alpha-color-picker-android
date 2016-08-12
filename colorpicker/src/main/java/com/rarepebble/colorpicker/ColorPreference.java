@@ -48,15 +48,11 @@ public class ColorPreference extends DialogPreference {
 			TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPicker, 0, 0);
 			selectNoneButtonText = a.getString(R.styleable.ColorPicker_colorpicker_selectNoneButtonText);
 			noneSelectedSummaryText = a.getString(R.styleable.ColorPicker_colorpicker_noneSelectedSummaryText);
-//			defaultColor = a.hasValue(R.styleable.ColorPicker_colorpicker_defaultColor)
-//					? a.getColor(R.styleable.ColorPicker_colorpicker_defaultColor, Color.GRAY)
-//					: null;
 			showAlpha = a.getBoolean(R.styleable.ColorPicker_colorpicker_showAlpha, true);
 			showHex = a.getBoolean(R.styleable.ColorPicker_colorpicker_showHex, true);
 		}
 		else {
 			selectNoneButtonText = null;
-			defaultColor = null;
 			noneSelectedSummaryText = null;
 			showAlpha = true;
 			showHex = true;
@@ -73,7 +69,7 @@ public class ColorPreference extends DialogPreference {
 
 	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index) {
-		if (a.peekValue(index).type == TypedValue.TYPE_STRING) {
+		if (a.peekValue(index) != null && a.peekValue(index).type == TypedValue.TYPE_STRING) {
 			return Color.parseColor(standardiseColorDigits(a.getString(index)));
 		}
 		else {
