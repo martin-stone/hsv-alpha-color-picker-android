@@ -60,7 +60,7 @@ public class ColorPickerView extends FrameLayout {
 		// thanks to the EditText and its listeners!
 	}
 
-	void applyAttributes(AttributeSet attrs) {
+	private void applyAttributes(AttributeSet attrs) {
 		if (attrs != null) {
 			TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPicker, 0, 0);
 			showAlpha(a.getBoolean(R.styleable.ColorPicker_colorpicker_showAlpha, true));
