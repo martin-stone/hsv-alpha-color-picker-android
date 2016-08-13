@@ -70,11 +70,12 @@ public class ColorPreference extends DialogPreference {
 	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index) {
 		if (a.peekValue(index) != null && a.peekValue(index).type == TypedValue.TYPE_STRING) {
-			return Color.parseColor(standardiseColorDigits(a.getString(index)));
+			defaultColor = Color.parseColor(standardiseColorDigits(a.getString(index)));
 		}
 		else {
-			return a.getColor(index, Color.GRAY);
+			defaultColor = a.getColor(index, Color.GRAY);
 		}
+		return defaultColor;
 	}
 
 	private static String standardiseColorDigits(String s) {
@@ -94,7 +95,6 @@ public class ColorPreference extends DialogPreference {
 
 	@Override
 	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-		defaultColor = (Integer)defaultValue;
 		setColor(restorePersistedValue ? getColor() : defaultColor);
 	}
 
