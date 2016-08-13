@@ -23,16 +23,19 @@ In addition, the Hue-Saturation picker...
 ## Using the Library
 
 Add the library dependency to your app module's *build.gradle*:
+
 ```groovy
     dependencies {
-        compile 'com.rarepebble:colorpicker:1.7.0'
+        compile 'com.rarepebble:colorpicker:2.0.0'
     }
 ```
 Add *jcenter()* to your repository list if it isn't there already.
 
 ## ColorPreference Usage
 
-Add the *ColorPreference* to your preference screen xml. Don't forget the extra *xmlns:* declaration:
+Add the *ColorPreference* to your preference screen xml. Don't forget the extra *xmlns:*
+declaration if using the custom attributes described below.
+
 ```xml
     <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -41,46 +44,119 @@ Add the *ColorPreference* to your preference screen xml. Don't forget the extra 
         <com.rarepebble.colorpicker.ColorPreference
             android:key="simplePreference"
             android:title="@string/pref_title"
-            app:colorpicker_defaultColor="#f00"
+            android:defaultValue="#f00"
             />
 
     </PreferenceScreen>
 ```
-To use the "optional color" functionality, specify a button label for the "no color" button:
+
+### XML Preference Attributes
+
+The standard [preference attributes](https://developer.android.com/reference/android/preference/Preference.html#lattrs)
+apply as normal, including *defaultValue*, which can be a hex color, as in the example above, or a
+reference to a color defined elsewhere.
+
+In addition, the following custom attributes may be used. They should be prefixed with the
+namespace used for *res-auto*, as in the example below.
+
+#### colorpicker_selectNoneButtonText
+
+If set, this text will appear on a third button on the color picker dialog.
+This resets the color setting to the *defaultValue* if set.
+If there is no *defaultValue*, any saved color setting is removed. Apps can use this to implement
+"no color selected" logic. Use *SharedPreference.contains("myOptionalColorKey")* to test for that.
+
+#### colorpicker_noneSelectedSummaryText
+
+This text displays as the preference summary text if no color has been selected.
+
+#### colorpicker_showAlpha
+
+Set to false to hide the alpha slider.
+
+#### colorpicker_showHex
+
+Set to false to hide the hex value field.
+
+**Note:** *colorpicker_defaultColor* was removed in version 2, in favour of *android:defaultValue*
+If upgrading, just use *android:defaultValue* instead.
+
+
 ```xml
+    <PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
         <com.rarepebble.colorpicker.ColorPreference
             android:key="myOptionalColor"
             android:title="@string/pref_optional_color"
             app:colorpicker_selectNoneButtonText="@string/no_color"
             app:colorpicker_noneSelectedSummaryText="@string/no_color_selected"
             />
+    </PreferenceScreen>
 ```
-You can also specify some summary text to be shown when there is no color chosen, as in the example
-here. The "No color" choice is saved by removing the saved preference, so use
-*SharedPreference.contains("myOptionalColor")* to test for that.
 
-To omit the alpha slider or the hex text field, set the optional *colorpicker_showAlpha* or
-*colorpicker_showHex* attributes on the color preference.
+There are further examples in the demo app.
 
 ## ColorPickerView Usage
 
-For many people, the *ColorPreference* will be all that's needed, but if you wish to use the
-*ColorPickerView* directly, it can be constructed in the usual way, either in code or in a layout.
+In many cases, the *ColorPreference* will be all that's needed, but if you wish to use the
+*ColorPickerView* directly, it can be constructed in like any other view, either in code or in XML.
 Set the initial color with *setColor()* and retrieve the view's current color with *getColor()*:
+
 ```java
     final ColorPickerView picker = new ColorPickerView(getContext());
     picker.setColor(0xff12345);
     ...
     final int color = picker.getColor();
 ```
-If you wish to set the initial color and current color independently, use *setOriginalColor()* and
-*setCurrentColor()* functions.
 
 Refer to the [ColorPreference source](colorpicker/src/main/java/com/rarepebble/colorpicker/ColorPreference.java?ts=4)
 for a fuller example.
 
-To hide the alpha or hex edit fields, use the *showAlpha()* or *showHex()* functions, or use the
-*colorpicker_showAlpha* and *colorpicker_showHex* attributes in XML.
+### XML View Attributes
+
+The custom attributes above should be prefixed with the namespace used for *res-auto*, just like
+the preference attributes. See the [view demo source](demo_app/src/main/res/layout/view_demo.xml)
+for an example.
+
+#### colorpicker_showAlpha
+
+Set to false to hide the alpha slider. (Default is visible.)
+
+#### colorpicker_showHex
+
+Set to false to hide the hex value field. (Default is visible.)
+
+### ColorPickerView methods
+
+#### public int getColor()
+
+Gets the current color.
+
+#### public void setColor(int color)
+
+Sets the original color swatch and the current color to the specified value.
+
+#### public void setOriginalColor(int color)
+
+Sets the original color swatch without changing the current color.
+
+#### public void setCurrentColor(int color)
+
+Updates the current color without changing the original color swatch.
+
+#### public void showAlpha(boolean showAlpha)
+
+Shows or hides the alpha slider.
+
+#### public void showHex(boolean showHex)
+
+Shows or hides the hex value field.
+
+#### public void addColorObserver(ColorObserver observer)
+
+Allows an object to receive notifications when the color changes.
 
 ## Bugs
 
