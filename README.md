@@ -20,6 +20,11 @@ In addition, the Hue-Saturation picker...
 * gives higher hue precision than a square picker of the same size.
 * allows easier selection of pure white than a circular picker.
 
+## Demo App
+
+A demo is [available on the Play Store](https://play.google.com/store/apps/details?id=com.rarepebble.colorpickerdemo).
+Source code for the app is in the *demo_app* folder in this repo.
+
 ## Using the Library
 
 Add the library dependency to your app module's *build.gradle*:
@@ -72,14 +77,14 @@ This text displays as the preference summary text if no color has been selected.
 
 #### colorpicker_showAlpha
 
-Set to false to hide the alpha slider.
+Set this to false to hide the alpha slider.
 
 #### colorpicker_showHex
 
-Set to false to hide the hex value field.
+Set this to false to hide the hex value field.
 
-**Note:** *colorpicker_defaultColor* was removed in version 2, in favour of *android:defaultValue*
-If upgrading, just use *android:defaultValue* instead.
+**Note:** *colorpicker_defaultColor* was removed in version 2, in favour of *android:defaultValue*.
+If upgrading, just switch to using *android:defaultValue* instead.
 
 
 ```xml
