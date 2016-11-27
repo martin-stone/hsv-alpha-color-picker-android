@@ -106,7 +106,7 @@ There are further examples in the demo app.
 ## ColorPickerView Usage
 
 In many cases, the *ColorPreference* will be all that's needed, but if you wish to use the
-*ColorPickerView* directly, it can be constructed in like any other view, either in code or in XML.
+*ColorPickerView* directly, it can be constructed like any other view, either in code or in XML.
 Set the initial color with *setColor()* and retrieve the view's current color with *getColor()*:
 
 ```java
