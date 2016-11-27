@@ -86,6 +86,7 @@
             android:textSize="18sp"
             android:background="@null"
             android:inputType="textNoSuggestions"
+            android:imeOptions="flagNoExtractUi"
             />
 
     </LinearLayout>

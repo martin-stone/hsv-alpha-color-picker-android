@@ -71,6 +71,7 @@
         android:typeface="monospace"
         android:background="@null"
         android:inputType="textNoSuggestions"
+        android:imeOptions="flagNoExtractUi"
         />
 
 </LinearLayout>
