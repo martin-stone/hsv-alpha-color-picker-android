@@ -21,11 +21,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 public class ColorPreference extends DialogPreference {
@@ -157,6 +160,16 @@ public class ColorPreference extends DialogPreference {
 				}
 			});
 		}
+	}
+
+	@Override
+	protected void showDialog(Bundle state) {
+		super.showDialog(state);
+		// Nexus 7 needs the keyboard hiding explicitly.
+		// A flag on the activity in the manifest doesn't
+		// apply to the dialog, so needs to be in code:
+		Window window = getDialog().getWindow();
+		window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
 
 	private void removeSetting() {
