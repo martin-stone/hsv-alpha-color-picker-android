@@ -27,6 +27,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 
 public class HueSatView extends SquareView implements ColorObserver {
@@ -38,7 +39,9 @@ public class HueSatView extends SquareView implements ColorObserver {
 	private final Rect viewRect = new Rect();
 	private int w;
 	private int h;
-	private Bitmap bitmap;
+
+	// Bitmap is generated once and shared across instances.
+	private static Bitmap bitmap;
 
 	private final PointF pointer = new PointF();
 	private ObservableColor observableColor = new ObservableColor(0);
@@ -55,7 +58,15 @@ public class HueSatView extends SquareView implements ColorObserver {
 		pointerPaint.setColor(0xff000000);
 		pointerPath = Resources.makePointerPath(context);
 		borderPath = new Path();
-		bitmap = makeBitmap(1);
+		if (bitmap == null) {
+			bitmap = makeBitmap(optimalBitmapSize());
+		}
+	}
+
+	private int optimalBitmapSize() {
+		final int scale = 2;
+		final DisplayMetrics dm = getResources().getDisplayMetrics();
+		return Math.min(dm.widthPixels, dm.heightPixels) / scale;
 	}
 
 	public void observeColor(ObservableColor observableColor) {
@@ -75,12 +86,9 @@ public class HueSatView extends SquareView implements ColorObserver {
 		this.w = w;
 		this.h = h;
 		viewRect.set(0, 0, w, h);
+
 		float inset = borderPaint.getStrokeWidth() / 2;
 		makeBorderPath(borderPath, w, h, inset);
-
-		final int scale = 2;
-		final int bitmapRadius = Math.min(w, h) / scale;
-		bitmap = makeBitmap(bitmapRadius);
 
 		// Sets pointer position
 		updateColor(observableColor);
@@ -162,18 +170,18 @@ public class HueSatView extends SquareView implements ColorObserver {
 	}
 
 	private static Bitmap makeBitmap(int radiusPx) {
-		int[] colors = new int[radiusPx * radiusPx];
-		float[] hsv = new float[]{0f, 0f, 1f};
-		for (int y = 0; y < radiusPx; ++y) {
-			for (int x = 0; x < radiusPx; ++x) {
-				int i = x + y * radiusPx;
-				float sat = satForPos(x, y, radiusPx);
-				int alpha = (int)(Math.max(0, Math.min(1, (1 - sat) * radiusPx)) * 255); // antialias edge
-				hsv[0] = hueForPos(x, y, radiusPx);
-				hsv[1] = sat;
-				colors[i] = Color.HSVToColor(alpha, hsv);
+			int[] colors = new int[radiusPx * radiusPx];
+			float[] hsv = new float[]{0f, 0f, 1f};
+			for (int y = 0; y < radiusPx; ++y) {
+				for (int x = 0; x < radiusPx; ++x) {
+					int i = x + y * radiusPx;
+					float sat = satForPos(x, y, radiusPx);
+					int alpha = (int)(Math.max(0, Math.min(1, (1 - sat) * radiusPx)) * 255); // antialias edge
+					hsv[0] = hueForPos(x, y, radiusPx);
+					hsv[1] = sat;
+					colors[i] = Color.HSVToColor(alpha, hsv);
+				}
 			}
-		}
 		return Bitmap.createBitmap(colors, radiusPx, radiusPx, Bitmap.Config.ARGB_8888);
 	}
 
