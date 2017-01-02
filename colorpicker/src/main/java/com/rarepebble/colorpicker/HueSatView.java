@@ -170,18 +170,20 @@ public class HueSatView extends SquareView implements ColorObserver {
 	}
 
 	private static Bitmap makeBitmap(int radiusPx) {
-			int[] colors = new int[radiusPx * radiusPx];
-			float[] hsv = new float[]{0f, 0f, 1f};
-			for (int y = 0; y < radiusPx; ++y) {
-				for (int x = 0; x < radiusPx; ++x) {
-					int i = x + y * radiusPx;
-					float sat = satForPos(x, y, radiusPx);
-					int alpha = (int)(Math.max(0, Math.min(1, (1 - sat) * radiusPx)) * 255); // antialias edge
+		int[] colors = new int[radiusPx * radiusPx];
+		float[] hsv = new float[]{0f, 0f, 1f};
+		for (int y = 0; y < radiusPx; ++y) {
+			for (int x = 0; x < radiusPx; ++x) {
+				int i = x + y * radiusPx;
+				float sat = satForPos(x, y, radiusPx);
+				int alpha = (int)(Math.max(0, Math.min(1, (1 - sat) * radiusPx)) * 255); // antialias edge
+				if (alpha > 0) {
 					hsv[0] = hueForPos(x, y, radiusPx);
 					hsv[1] = sat;
 					colors[i] = Color.HSVToColor(alpha, hsv);
 				}
 			}
+		}
 		return Bitmap.createBitmap(colors, radiusPx, radiusPx, Bitmap.Config.ARGB_8888);
 	}
 
