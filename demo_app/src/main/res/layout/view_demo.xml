@@ -11,6 +11,7 @@
         android:layout_height="match_parent"
         app:colorpicker_showAlpha="true"
         app:colorpicker_showHex="true"
+        app:colorpicker_showPreview="true"
         />
 
 </FrameLayout>

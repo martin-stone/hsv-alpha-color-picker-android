@@ -83,6 +83,10 @@ Set this to false to hide the alpha slider.
 
 Set this to false to hide the hex value field.
 
+#### colorpicker_showPreview
+
+Set this to false to hide the color preview field.
+
 **Note:** *colorpicker_defaultColor* was removed in version 2, in favour of *android:defaultValue*.
 If upgrading, just switch to using *android:defaultValue* instead.
 
@@ -158,6 +162,10 @@ Shows or hides the alpha slider.
 #### public void showHex(boolean showHex)
 
 Shows or hides the hex value field.
+
+#### public void showPreview(boolean showPreview)
+
+Shows or hides the color preview field.
 
 #### public void addColorObserver(ColorObserver observer)
 
