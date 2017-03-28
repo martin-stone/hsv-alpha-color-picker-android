@@ -137,6 +137,10 @@ Set to false to hide the alpha slider. (Default is visible.)
 
 Set to false to hide the hex value field. (Default is visible.)
 
+#### colorpicker_showPreview
+
+Set to false to hide the color preview field. (Default is visible.)
+
 ### ColorPickerView methods
 
 #### public int getColor()
