@@ -141,6 +141,7 @@ public class ColorPreference extends DialogPreference {
 		picker.setColor(getPersistedInt(defaultColor == null ? Color.GRAY : defaultColor));
 		picker.showAlpha(showAlpha);
 		picker.showHex(showHex);
+		picker.showPreview(showPreview);
 		builder
 				.setTitle(null)
 				.setView(picker)
