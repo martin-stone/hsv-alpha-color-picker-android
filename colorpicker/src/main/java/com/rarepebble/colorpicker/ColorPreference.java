@@ -38,6 +38,7 @@ public class ColorPreference extends DialogPreference {
 	private final CharSequence summaryText;
 	private final boolean showAlpha;
 	private final boolean showHex;
+	private final boolean showPreview;
 	private View thumbnail;
 
 	public ColorPreference(Context context) {
@@ -53,12 +54,14 @@ public class ColorPreference extends DialogPreference {
 			noneSelectedSummaryText = a.getString(R.styleable.ColorPicker_colorpicker_noneSelectedSummaryText);
 			showAlpha = a.getBoolean(R.styleable.ColorPicker_colorpicker_showAlpha, true);
 			showHex = a.getBoolean(R.styleable.ColorPicker_colorpicker_showHex, true);
+			showPreview = a.getBoolean(R.styleable.ColorPicker_colorpicker_showPreview, true);
 		}
 		else {
 			selectNoneButtonText = null;
 			noneSelectedSummaryText = null;
 			showAlpha = true;
 			showHex = true;
+			showPreview = true;
 		}
 	}
 
@@ -138,6 +141,7 @@ public class ColorPreference extends DialogPreference {
 		picker.setColor(getPersistedInt(defaultColor == null ? Color.GRAY : defaultColor));
 		picker.showAlpha(showAlpha);
 		picker.showHex(showHex);
+		picker.showPreview(showPreview);
 		builder
 				.setTitle(null)
 				.setView(picker)

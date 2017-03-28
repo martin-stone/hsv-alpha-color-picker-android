@@ -65,6 +65,7 @@ public class ColorPickerView extends FrameLayout {
 			TypedArray a = getContext().getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPicker, 0, 0);
 			showAlpha(a.getBoolean(R.styleable.ColorPicker_colorpicker_showAlpha, true));
 			showHex(a.getBoolean(R.styleable.ColorPicker_colorpicker_showHex, true));
+			showPreview(a.getBoolean(R.styleable.ColorPicker_colorpicker_showPreview, true));
 		}
 	}
 
@@ -100,5 +101,9 @@ public class ColorPickerView extends FrameLayout {
 
 	public void showHex(boolean showHex) {
 		hexEdit.setVisibility(showHex ? View.VISIBLE : View.GONE);
+	}
+
+	public void showPreview(boolean showPreview) {
+		swatchView.setVisibility(showPreview ? View.VISIBLE : View.GONE);
 	}
 }
