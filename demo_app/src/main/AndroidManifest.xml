@@ -19,6 +19,11 @@
             android:label="@string/title_activity_main"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity
+            android:name="com.rarepebble.colorpickerdemo.CompatActivity"
+            android:theme="@style/AppTheme"
+            android:label="@string/title_activity_compat">
+        </activity>
     </application>
 
 </manifest>

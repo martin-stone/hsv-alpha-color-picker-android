@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.rarepebble.colorpicker.ColorPreference
+    <com.rarepebble.colorpicker.ColorPreferenceCompat
         android:key="simplePreference"
         android:title="@string/pref_title"
         android:defaultValue="#f00"
         />
 
-    <com.rarepebble.colorpicker.ColorPreference
+    <com.rarepebble.colorpicker.ColorPreferenceCompat
         android:key="optionalColor"
         android:title="@string/pref_optional_color"
         app:colorpicker_noneSelectedSummaryText="@string/no_color_selected"
@@ -17,7 +17,7 @@
         app:colorpicker_selectNoneButtonText="@string/no_color"
         />
 
-    <com.rarepebble.colorpicker.ColorPreference
+    <com.rarepebble.colorpicker.ColorPreferenceCompat
         android:key="optionalColorWithDefault"
         android:title="@string/pref_default_color"
         android:summary="@string/pref_default_color_summary"
@@ -25,7 +25,7 @@
         app:colorpicker_selectNoneButtonText="@string/default_color"
         />
 
-    <com.rarepebble.colorpicker.ColorPreference
+    <com.rarepebble.colorpicker.ColorPreferenceCompat
         android:key="opaquePreference"
         android:title="@string/pref_no_alpha"
         android:summary="@string/pref_no_alpha_summary"
@@ -34,7 +34,7 @@
         />
 
 
-    <com.rarepebble.colorpicker.ColorPreference
+    <com.rarepebble.colorpicker.ColorPreferenceCompat
         android:key="opaquePreferenceNoHex"
         android:title="@string/pref_title_minimal"
         android:summary="@string/pref_title_minimal_summary"
@@ -42,21 +42,5 @@
         app:colorpicker_showHex="false"
         android:defaultValue="#0f0"
         />
-
-    <PreferenceScreen
-        android:title="@string/pref_show_view_usage_demo">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="com.rarepebble.colorpickerdemo.ViewDemoActivity"
-            android:targetPackage="com.rarepebble.colorpickerdemo" />
-    </PreferenceScreen>
-
-    <PreferenceScreen
-        android:title="@string/pref_show_compat">
-        <intent
-            android:action="android.intent.action.VIEW"
-            android:targetClass="com.rarepebble.colorpickerdemo.CompatActivity"
-            android:targetPackage="com.rarepebble.colorpickerdemo" />
-    </PreferenceScreen>
 
 </PreferenceScreen>

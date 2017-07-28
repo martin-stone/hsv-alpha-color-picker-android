@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'colorpicker-compat'
+
+    publishedGroupId = 'com.rarepebble'
+    libraryName = 'HSV-Alpha Color Picker for Android'
+    artifact = 'colorpicker-compat'
+
+    libraryDescription = 'A library providing a ColorPreferenceCompat and ColorPickerView for Android, support library version.'
+
+    siteUrl = 'https://github.com/martin-stone/hsv-alpha-color-picker-android'
+    gitUrl = 'https://github.com/martin-stone/hsv-alpha-color-picker-android.git'
+
+    libraryVersion = '2.2.0'
+
+    developerId = 'martin-stone'
+    developerName = 'Martin Stone'
+    //developerEmail = '@rarepebble.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
+    defaultConfig {
+        minSdkVersion 11
+        targetSdkVersion 25
+        versionCode 20200
+        versionName '2.2.0'
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:preference-v7:25.3.1'
+    compile project(':colorpicker')
+}
+
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'

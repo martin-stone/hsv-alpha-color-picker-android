@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">HSV-Alpha Color Picker</string>
     <string name="title_activity_main">Color picker demo</string>
+    <string name="title_activity_compat">Support Library color picker demo</string>
 
     <string name="pref_title">An example color</string>
 
@@ -18,4 +19,5 @@
     <string name="pref_title_minimal">With no alpha or hex fields</string>
     <string name="pref_title_minimal_summary">app:colorpicker_showAlpha=\"false\" and app:colorpicker_showHex=\"false\"</string>
     <string name="pref_show_view_usage_demo">Show view usage demo</string>
+    <string name="pref_show_compat">Show Support Library demo</string>
 </resources>

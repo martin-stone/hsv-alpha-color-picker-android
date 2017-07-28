@@ -1,1 +1,1 @@
-include ':demo_app', ':colorpicker'
+include ':demo_app', ':colorpicker_compat', ':colorpicker'

@@ -34,6 +34,15 @@ Add the library dependency to your app module's *build.gradle*:
         compile 'com.rarepebble:colorpicker:2.2.0'
     }
 ```
+
+If you're using the Support Library Preferences, add this dependency instead:
+
+```groovy
+    dependencies {
+        compile 'com.rarepebble:colorpicker-compat:2.2.0'
+    }
+```
+
 Add *jcenter()* to your repository list if it isn't there already.
 
 ## ColorPreference Usage
@@ -54,6 +63,36 @@ declaration if using the custom attributes described below.
 
     </PreferenceScreen>
 ```
+
+For the Support Library version, replace `com.rarepebble.colorpicker.ColorPreference` with
+`com.rarepebble.colorpicker.ColorPreferenceCompat` in the example above, and add
+[ColorPreferenceHelper](colorpicker_compat/src/main/java/com/rarepebble/colorpicker/ColorPreferenceHelper.java) to your
+`PreferenceFragmentCompat` implementation:
+```java
+public class MyPreferenceFragment extends PreferenceFragmentCompat {
+
+    private ColorPreferenceHelper helper;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        helper = new ColorPreferenceHelper(this);
+    }
+
+    // ...
+
+    @Override
+    public void onDisplayPreferenceDialog(Preference preference) {
+        if (!helper.onDisplayPreferenceDialog(preference)) {
+            super.onDisplayPreferenceDialog(preference);
+        }
+    }
+}
+
+```
+
+See [CompatActivity.java](demo_app/src/main/java/com/rarepebble/colorpickerdemo/CompatActivity.java) in the demo app for
+a working example.
 
 ### XML Preference Attributes
 
