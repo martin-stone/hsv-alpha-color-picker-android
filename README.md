@@ -55,12 +55,12 @@ declaration if using the custom attributes described below.
     </PreferenceScreen>
 ```
 
-To initialize the preference in SharedPreferences, you must putInt a combined alpha and RGB value in an activity (e.g. in onCreate()). Defining the defaultValue in XML is redundant if this is done.
+The above example will store a color with the key "simplePreference" in the default shared
+preferences. The stored value is an integer color with alpha component (as used throughout
+Android). To access the saved color in this example (with the same default)...
 
 ```java
-SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-	SharedPreferences.Editor editor = sharedPreferences.edit();
-	editor.putInt("simplePreference", 0xff00ffff).commit();
+    PreferenceManager.getDefaultSharedPreferences(context).getInt("simplePreference", 0xffff0000);
 ```
 
 ### XML Preference Attributes
