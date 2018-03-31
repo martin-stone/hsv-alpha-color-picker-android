@@ -16,6 +16,7 @@
 
 package com.rarepebble.colorpicker;
 
+import android.graphics.Color;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -52,14 +53,9 @@ class HexEdit {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				try {
-					int color = (int)(Long.parseLong(s.toString(), 16) & 0xffffffff);
-					if (shouldTrimAlphaDigits()) color = color | 0xff000000;
-					observableColor.updateColor(color, this);
-				}
-				catch (NumberFormatException e) {
-					observableColor.updateColor(0, this);
-				}
+				int color = parseHexColor(s);
+				if (shouldTrimAlphaDigits()) color = color | 0xff000000;
+				observableColor.updateColor(color, this);
 			}
 
 			@Override
@@ -77,6 +73,14 @@ class HexEdit {
 		setShowAlphaDigits(hexEdit, true);
 	}
 
+	private static int parseHexColor(CharSequence s) {
+		try {
+			return (int)(Long.parseLong(s.toString(), 16) & 0xffffffffL);
+		}
+		catch (NumberFormatException e) {
+			return Color.GRAY;
+		}
+	}
 
 	public static void setShowAlphaDigits(final EditText hexEdit, boolean showAlphaDigits) {
 		hexEdit.setFilters(showAlphaDigits ? withAlphaDigits : withoutAlphaDigits);
