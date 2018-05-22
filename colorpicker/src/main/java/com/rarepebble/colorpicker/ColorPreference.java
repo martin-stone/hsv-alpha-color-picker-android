@@ -117,7 +117,7 @@ public class ColorPreference extends DialogPreference {
 	}
 
 	private Integer getPersistedIntDefaultOrNull() {
-		return getSharedPreferences().contains(getKey())
+		return shouldPersist() && getSharedPreferences().contains(getKey())
 				? Integer.valueOf(getPersistedInt(Color.GRAY))
 				: defaultColor;
 	}
@@ -181,7 +181,7 @@ public class ColorPreference extends DialogPreference {
 			getSharedPreferences()
 					.edit()
 					.remove(getKey())
-					.commit();
+					.apply();
 		}
 	}
 
