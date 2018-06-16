@@ -103,7 +103,7 @@ public abstract class SliderViewBase extends View {
 		canvas.drawBitmap(bitmap, null, viewRect, null);
 		canvas.drawPath(borderPath, borderPaint);
 
-		canvas.save(Canvas.MATRIX_SAVE_FLAG);
+		canvas.save();
 		if (isWide()) {
 			canvas.translate(w * currentPos, h / 2);
 		}
