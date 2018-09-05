@@ -75,12 +75,19 @@ public class ColorPreference extends DialogPreference {
 
 	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index) {
-		if (a.peekValue(index) != null && a.peekValue(index).type == TypedValue.TYPE_STRING) {
-			return a.getString(index);
+		if (a.peekValue(index) != null) {
+			int type = a.peekValue(index).type;
+			if (type == TypedValue.TYPE_STRING) {
+				return a.getString(index);
+			}
+			else if (TypedValue.TYPE_FIRST_COLOR_INT <= type && type <= TypedValue.TYPE_LAST_COLOR_INT) {
+				return a.getColor(index, Color.GRAY);
+			}
+			else if (TypedValue.TYPE_FIRST_INT <= type && type <= TypedValue.TYPE_LAST_INT) {
+				return a.getInt(index, Color.GRAY);
+			}
 		}
-		else {
-			return null;
-		}
+		return null;
 	}
 
 	@Override

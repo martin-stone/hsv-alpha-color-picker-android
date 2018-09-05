@@ -40,7 +40,7 @@
         android:summary="@string/pref_title_minimal_summary"
         app:colorpicker_showAlpha="false"
         app:colorpicker_showHex="false"
-        android:defaultValue="#0f0"
+        android:defaultValue="@color/example_color_resource"
         />
 
     <PreferenceScreen
