@@ -28,7 +28,7 @@ public class ObservableColor {
 	private int alpha;
 	private final List<ColorObserver> observers = new ArrayList<ColorObserver>();
 
-	ObservableColor(int color) {
+	public ObservableColor(int color) {
 		Color.colorToHSV(color, hsv);
 		alpha = Color.alpha(color);
 	}
