@@ -16,13 +16,16 @@
 
 package com.rarepebble.colorpicker;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.preference.DialogPreference;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.preference.DialogPreference;
+import android.support.v7.preference.PreferenceViewHolder;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -35,18 +38,15 @@ public class ColorPreference extends DialogPreference {
 	private final String selectNoneButtonText;
 	private Integer defaultColor;
 	private final String noneSelectedSummaryText;
-	private final CharSequence summaryText;
 	private final boolean showAlpha;
 	private final boolean showHex;
 	private final boolean showPreview;
-	private View thumbnail;
 
 	public ColorPreference(Context context) {
 		this(context, null);
 	}
 	public ColorPreference(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		summaryText = super.getSummary();
 
 		if (attrs != null) {
 			TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.ColorPicker, 0, 0);
@@ -65,20 +65,42 @@ public class ColorPreference extends DialogPreference {
 		}
 	}
 
+	public ColorPreferenceFragment showDialog(@NonNull Fragment targetFragment, int requestCode) {
+		ColorPreferenceFragment fragment = ColorPreferenceFragment.newInstance(getKey());
+		fragment.setTargetFragment(targetFragment, requestCode);
+		FragmentManager fragmentManager = targetFragment.getFragmentManager();
+		if (fragmentManager != null) {
+			fragment.show(fragmentManager, getKey());
+			hideKeyboard(targetFragment);
+		}
+		return fragment;
+	}
+
 	@Override
-	protected void onBindView(View view) {
-		thumbnail = addThumbnail(view);
-		showColor(getPersistedIntDefaultOrNull());
-		// Only call after showColor sets any summary text:
-		super.onBindView(view);
+	public CharSequence getSummary() {
+		return (noneSelectedSummaryText != null && getPersistedIntDefaultOrNull() == null)
+				? noneSelectedSummaryText
+				: super.getSummary();
+	}
+
+	@Override
+	public void onBindViewHolder(PreferenceViewHolder holder) {
+		View thumbnail = addThumbnail(holder.itemView);
+		showColor(thumbnail, getPersistedIntDefaultOrNull());
+		super.onBindViewHolder(holder);
 	}
 
 	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index) {
+		defaultColor = readDefaultValue(a, index);
+		return defaultColor;
+	}
+
+	private static Integer readDefaultValue(TypedArray a, int index) {
 		if (a.peekValue(index) != null) {
 			int type = a.peekValue(index).type;
 			if (type == TypedValue.TYPE_STRING) {
-				return a.getString(index);
+				return Color.parseColor(standardiseColorDigits(a.getString(index)));
 			}
 			else if (TypedValue.TYPE_FIRST_COLOR_INT <= type && type <= TypedValue.TYPE_LAST_COLOR_INT) {
 				return a.getColor(index, Color.GRAY);
@@ -91,13 +113,22 @@ public class ColorPreference extends DialogPreference {
 	}
 
 	@Override
+	public void setDefaultValue(Object defaultValue) {
+		super.setDefaultValue(defaultValue);
+		defaultColor = parseDefaultValue(defaultValue);
+	}
+
+	@Override
 	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-		defaultColor = (defaultValue == null)
+		setColor(restorePersistedValue ? getColor() : parseDefaultValue(defaultValue));
+	}
+
+	private static int parseDefaultValue(Object defaultValue) {
+		return (defaultValue == null)
 				? Color.GRAY
 				: (defaultValue instanceof Integer)
 					? (Integer)defaultValue
 					: Color.parseColor(standardiseColorDigits(defaultValue.toString()));
-		setColor(restorePersistedValue ? getColor() : defaultColor);
 	}
 
 	private static String standardiseColorDigits(String s) {
@@ -133,20 +164,15 @@ public class ColorPreference extends DialogPreference {
 				: defaultColor;
 	}
 
-	private void showColor(Integer color) {
+	private void showColor(View thumbnail, Integer color) {
 		Integer thumbColor = color == null ? defaultColor : color;
 		if (thumbnail != null) {
 			thumbnail.setVisibility(thumbColor == null ? View.GONE : View.VISIBLE);
 			thumbnail.findViewById(R.id.colorPreview).setBackgroundColor(thumbColor == null ? 0 : thumbColor);
 		}
-		if (noneSelectedSummaryText != null) {
-			setSummary(thumbColor == null ? noneSelectedSummaryText : summaryText);
-		}
 	}
 
-	@Override
-	protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
-		super.onPrepareDialogBuilder(builder);
+	void prepareDialogBuilder(AlertDialog.Builder builder) {
 		final ColorPickerView picker = new ColorPickerView(getContext());
 
 		picker.setColor(getPersistedInt(defaultColor == null ? Color.GRAY : defaultColor));
@@ -177,13 +203,11 @@ public class ColorPreference extends DialogPreference {
 		}
 	}
 
-	@Override
-	protected void showDialog(Bundle state) {
-		super.showDialog(state);
+	private void hideKeyboard(Fragment targetFragment) {
 		// Nexus 7 needs the keyboard hiding explicitly.
 		// A flag on the activity in the manifest doesn't
 		// apply to the dialog, so needs to be in code:
-		Window window = getDialog().getWindow();
+		Window window = targetFragment.getActivity().getWindow();
 		window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
 
@@ -203,7 +227,7 @@ public class ColorPreference extends DialogPreference {
 		else {
 			persistInt(color);
 		}
-		showColor(color);
+		notifyChanged();
 	}
 
 	public Integer getColor() {

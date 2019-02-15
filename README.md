@@ -63,6 +63,21 @@ Android). To access the saved color in this example (with the same default)...
     PreferenceManager.getDefaultSharedPreferences(context).getInt("simplePreference", 0xffff0000);
 ```
 
+The support library preferences require your app to invoke the color picker dialog in your 
+preference fragment's *onDisplayPreferenceDialog()* function: If the preference is a 
+*ColorPreference*, call its *showDialog()* function...   
+
+```java
+    public void onDisplayPreferenceDialog(Preference preference) {
+        if (preference instanceof ColorPreference) {
+            ((ColorPreference) preference).showDialog(this, 0);
+        } else super.onDisplayPreferenceDialog(preference);
+    }
+```
+
+See the [demo source](demo_app/src/main/java/com/rarepebble/colorpickerdemo/MainActivity.java) 
+for more context.
+
 ### XML Preference Attributes
 
 The standard [preference attributes](https://developer.android.com/reference/android/preference/Preference.html#lattrs)
