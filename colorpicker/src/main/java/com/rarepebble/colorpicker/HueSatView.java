@@ -61,12 +61,22 @@ public class HueSatView extends SquareView implements ColorObserver {
 		if (bitmap == null) {
 			bitmap = makeBitmap(optimalBitmapSize());
 		}
+
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
+			// Need clipPath() and setLayerType()...
+			throw new UnsupportedOperationException("Android API 10 and below is not supported.");
+		}
+		else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+			// clipPath() is only supported on a software layer.
+			setLayerType(LAYER_TYPE_SOFTWARE, null);
+		}
 	}
 
 	private int optimalBitmapSize() {
 		final int scale = 2;
+		final int maxBitmapSize = 128;
 		final DisplayMetrics dm = getResources().getDisplayMetrics();
-		return Math.min(dm.widthPixels, dm.heightPixels) / scale;
+		return Math.min(maxBitmapSize, Math.min(dm.widthPixels, dm.heightPixels) / scale);
 	}
 
 	public void observeColor(ObservableColor observableColor) {
@@ -157,16 +167,17 @@ public class HueSatView extends SquareView implements ColorObserver {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		canvas.drawBitmap(bitmap, null, viewRect, null);
-		canvas.drawPath(borderPath, borderPaint);
 
-		canvas.save(Canvas.MATRIX_SAVE_FLAG|Canvas.CLIP_SAVE_FLAG);
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-			canvas.clipPath(borderPath);
-		}
+		canvas.save();
+
+		canvas.clipPath(borderPath);
+		canvas.drawBitmap(bitmap, null, viewRect, null);
 		canvas.translate(pointer.x, pointer.y);
 		canvas.drawPath(pointerPath, pointerPaint);
+
 		canvas.restore();
+
+		canvas.drawPath(borderPath, borderPaint);
 	}
 
 	private static Bitmap makeBitmap(int radiusPx) {
@@ -174,13 +185,13 @@ public class HueSatView extends SquareView implements ColorObserver {
 		float[] hsv = new float[]{0f, 0f, 1f};
 		for (int y = 0; y < radiusPx; ++y) {
 			for (int x = 0; x < radiusPx; ++x) {
-				int i = x + y * radiusPx;
-				float sat = satForPos(x, y, radiusPx);
-				int alpha = (int)(Math.max(0, Math.min(1, (1 - sat) * radiusPx)) * 255); // antialias edge
-				if (alpha > 0) {
+				final int i = x + y * radiusPx;
+				final float sat = satForPos(x, y, radiusPx);
+				final float arcBleed = 2f / radiusPx; // extend curved edge pixels just outside clip area.
+				if (sat <= 1 + arcBleed) {
 					hsv[0] = hueForPos(x, y, radiusPx);
 					hsv[1] = sat;
-					colors[i] = Color.HSVToColor(alpha, hsv);
+					colors[i] = Color.HSVToColor(0xff, hsv);
 				}
 			}
 		}

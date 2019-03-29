@@ -13,7 +13,7 @@ ext {
     siteUrl = 'https://github.com/martin-stone/hsv-alpha-color-picker-android'
     gitUrl = 'https://github.com/martin-stone/hsv-alpha-color-picker-android.git'
 
-    libraryVersion = '2.2.0'
+    libraryVersion = '2.4.2'
 
     developerId = 'martin-stone'
     developerName = 'Martin Stone'
@@ -25,13 +25,12 @@ ext {
 }
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "21.1.2"
+    compileSdkVersion 28
     defaultConfig {
         minSdkVersion 11
-        targetSdkVersion 22
-        versionCode 20200
-        versionName '2.2.0'
+        targetSdkVersion 28
+        versionCode 20402
+        versionName '2.4.2'
     }
     buildTypes {
         release {
@@ -44,7 +43,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
 }
 
 apply from: 'install.gradle'

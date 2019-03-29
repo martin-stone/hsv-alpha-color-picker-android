@@ -31,7 +31,7 @@ Add the library dependency to your app module's *build.gradle*:
 
 ```groovy
     dependencies {
-        compile 'com.rarepebble:colorpicker:2.2.0'
+        compile 'com.rarepebble:colorpicker:2.4.2'
     }
 ```
 Add *jcenter()* to your repository list if it isn't there already.
@@ -53,6 +53,14 @@ declaration if using the custom attributes described below.
             />
 
     </PreferenceScreen>
+```
+
+The above example will store a color with the key "simplePreference" in the default shared
+preferences. The stored value is an integer color with alpha component (as used throughout
+Android). To access the saved color in this example (with the same default)...
+
+```java
+    PreferenceManager.getDefaultSharedPreferences(context).getInt("simplePreference", 0xffff0000);
 ```
 
 ### XML Preference Attributes

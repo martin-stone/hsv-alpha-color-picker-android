@@ -75,13 +75,29 @@ public class ColorPreference extends DialogPreference {
 
 	@Override
 	protected Object onGetDefaultValue(TypedArray a, int index) {
-		if (a.peekValue(index) != null && a.peekValue(index).type == TypedValue.TYPE_STRING) {
-			defaultColor = Color.parseColor(standardiseColorDigits(a.getString(index)));
+		if (a.peekValue(index) != null) {
+			int type = a.peekValue(index).type;
+			if (type == TypedValue.TYPE_STRING) {
+				return a.getString(index);
+			}
+			else if (TypedValue.TYPE_FIRST_COLOR_INT <= type && type <= TypedValue.TYPE_LAST_COLOR_INT) {
+				return a.getColor(index, Color.GRAY);
+			}
+			else if (TypedValue.TYPE_FIRST_INT <= type && type <= TypedValue.TYPE_LAST_INT) {
+				return a.getInt(index, Color.GRAY);
+			}
 		}
-		else {
-			defaultColor = a.getColor(index, Color.GRAY);
-		}
-		return defaultColor;
+		return null;
+	}
+
+	@Override
+	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
+		defaultColor = (defaultValue == null)
+				? Color.GRAY
+				: (defaultValue instanceof Integer)
+					? (Integer)defaultValue
+					: Color.parseColor(standardiseColorDigits(defaultValue.toString()));
+		setColor(restorePersistedValue ? getColor() : defaultColor);
 	}
 
 	private static String standardiseColorDigits(String s) {
@@ -99,11 +115,6 @@ public class ColorPreference extends DialogPreference {
 		}
 	}
 
-	@Override
-	protected void onSetInitialValue(boolean restorePersistedValue, Object defaultValue) {
-		setColor(restorePersistedValue ? getColor() : defaultColor);
-	}
-
 	private View addThumbnail(View view) {
 		LinearLayout widgetFrameView = ((LinearLayout)view.findViewById(android.R.id.widget_frame));
 		widgetFrameView.setVisibility(View.VISIBLE);
@@ -117,7 +128,7 @@ public class ColorPreference extends DialogPreference {
 	}
 
 	private Integer getPersistedIntDefaultOrNull() {
-		return getSharedPreferences().contains(getKey())
+		return shouldPersist() && getSharedPreferences().contains(getKey())
 				? Integer.valueOf(getPersistedInt(Color.GRAY))
 				: defaultColor;
 	}
@@ -181,7 +192,7 @@ public class ColorPreference extends DialogPreference {
 			getSharedPreferences()
 					.edit()
 					.remove(getKey())
-					.commit();
+					.apply();
 		}
 	}
 
