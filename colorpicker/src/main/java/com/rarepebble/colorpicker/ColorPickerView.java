@@ -89,10 +89,10 @@ public class ColorPickerView extends FrameLayout {
 	 * Sets the original color swatch and the current color to the specified value.
 	 *
 	 * <ul>
-	 *   <li><code>alpha</code> is Hue \([0..255[\)</li>
-	 *   <li><code>hue</code> is Hue \([0..360[\)</li>
-	 *   <li><code>sat</code> is Saturation \([0...1]\)</li>
-	 *   <li><code>bri</code> is Value \([0...1]\)</li>
+	 *   <li>Alpha [0...255]</li>
+	 *   <li>Hue [0...360)</li>
+	 *   <li>Saturation [0...1]</li>
+	 *   <li>Brightness [0...1]</li>
 	 * </ul>
 	 */	public void setColor(int alpha, float hue, float sat, float bri) {
 		setOriginalColor(alpha, hue, sat, bri);
