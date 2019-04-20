@@ -159,11 +159,23 @@ Gets the current color.
 
 Sets the original color swatch and the current color to the specified value.
 
+#### public void setColor(int alpha, float hue, float sat, float bri)
+
+Sets the original color swatch and the current color to the specified values.
+
 #### public void setOriginalColor(int color)
 
 Sets the original color swatch without changing the current color.
 
+#### public void setOriginalColor(int alpha, float hue, float sat, float bri)
+
+Sets the original color swatch without changing the current color.
+
 #### public void setCurrentColor(int color)
+
+Updates the current color without changing the original color swatch.
+
+#### public void setCurrentColor(int alpha, float hue, float sat, float bri)
 
 Updates the current color without changing the original color swatch.
 
