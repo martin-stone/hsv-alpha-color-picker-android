@@ -95,6 +95,14 @@ public class ObservableColor {
 		notifyOtherObservers(sender);
 	}
 
+	public void updateColor(int alpha, float hue, float sat, float bri, ColorObserver sender) {
+		this.alpha = alpha;
+		hsv[0] = hue;
+		hsv[1] = sat;
+		hsv[2] = bri;
+		notifyOtherObservers(sender);
+	}
+
 	private void notifyOtherObservers(ColorObserver sender) {
 		for (ColorObserver observer : observers) {
 			if (observer != sender) {

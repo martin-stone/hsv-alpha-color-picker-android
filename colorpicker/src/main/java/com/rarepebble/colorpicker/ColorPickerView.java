@@ -18,6 +18,7 @@ package com.rarepebble.colorpicker;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,10 +75,28 @@ public class ColorPickerView extends FrameLayout {
 		return observableColor.getColor();
 	}
 
-	/** Sets the original color swatch and the current color to the specified value. */
+	/**
+     *  Sets the original color swatch and the current color to the specified value.<br>
+     *  Using dark colors may lead to a loss of color information caused by the ARGB color space.
+     *  Use {@link #setColor(int, float, float, float)} instead to avoid this.
+     */
 	public void setColor(int color) {
 		setOriginalColor(color);
 		setCurrentColor(color);
+	}
+
+	/**
+	 * Sets the original color swatch and the current color to the specified value.
+	 *
+	 * <ul>
+	 *   <li>Alpha [0...255]</li>
+	 *   <li>Hue [0...360)</li>
+	 *   <li>Saturation [0...1]</li>
+	 *   <li>Brightness [0...1]</li>
+	 * </ul>
+	 */	public void setColor(int alpha, float hue, float sat, float bri) {
+		setOriginalColor(alpha, hue, sat, bri);
+		setCurrentColor(alpha, hue, sat, bri);
 	}
 
 	/** Sets the original color swatch without changing the current color. */
@@ -85,9 +104,20 @@ public class ColorPickerView extends FrameLayout {
 		swatchView.setOriginalColor(color);
 	}
 
+	/** Sets the original color swatch without changing the current color. */
+	public void setOriginalColor(int alpha, float hue, float sat, float bri) {
+        int color = Color.HSVToColor(alpha, new float[]{hue, sat, bri});
+		swatchView.setOriginalColor(color);
+	}
+
 	/** Updates the current color without changing the original color swatch. */
 	public void setCurrentColor(int color) {
 		observableColor.updateColor(color, null);
+	}
+
+	/** Updates the current color without changing the original color swatch. */
+	public void setCurrentColor(int alpha, float hue, float sat, float bri) {
+		observableColor.updateColor(alpha, hue, sat, bri, null);
 	}
 
 	public void showAlpha(boolean showAlpha) {
