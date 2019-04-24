@@ -31,7 +31,7 @@ Add the library dependency to your app module's *build.gradle*:
 
 ```groovy
     dependencies {
-        implementation 'com.rarepebble:colorpicker:3.0.0'
+        compile 'com.rarepebble:colorpicker:3.0.1'
     }
 ```
 Add *jcenter()* to your repository list if it isn't there already.

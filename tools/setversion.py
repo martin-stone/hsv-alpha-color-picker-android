@@ -2,8 +2,8 @@ import re
 
 files = ["../README.md", "../colorpicker/build.gradle", "../demo_app/build.gradle"]
 
-new_version_code = "30000"
-new_version_string = "3.0.0"
+new_version_code = "30001"
+new_version_string = "3.0.1"
 
 for file in files:
     with open(file, "rb") as f:
