@@ -36,6 +36,9 @@ Add the library dependency to your app module's *build.gradle*:
 ```
 Add *jcenter()* to your repository list if it isn't there already.
 
+If using AndroidX, set [android.enableJetifier=true](https://developer.android.com/jetpack/androidx/migrate#migrate_an_existing_project_using_android_studio)
+in your gradle.properties.
+
 ## ColorPreference Usage
 
 Add the *ColorPreference* to your preference screen xml. Don't forget the extra *xmlns:*
@@ -77,8 +80,6 @@ preference fragment's *onDisplayPreferenceDialog()* function: If the preference 
 
 **Note**: If upgrading from version 2, the above Java snippet is a new requirement in your
 application.
-
-If using AndroidX, set [android.enableJetifier=true](https://developer.android.com/jetpack/androidx/migrate#migrate_an_existing_project_using_android_studio) in your gradle.properties.
 
 See the [demo source](demo_app/src/main/java/com/rarepebble/colorpickerdemo/MainActivity.java) 
 for more context.
