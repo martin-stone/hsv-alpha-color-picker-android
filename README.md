@@ -75,6 +75,11 @@ preference fragment's *onDisplayPreferenceDialog()* function: If the preference 
     }
 ```
 
+**Note**: If upgrading from version 2, the above Java snippet is a new requirement in your
+application.
+
+If using AndroidX, set [android.enableJetifier=true](https://developer.android.com/jetpack/androidx/migrate#migrate_an_existing_project_using_android_studio) in your gradle.properties.
+
 See the [demo source](demo_app/src/main/java/com/rarepebble/colorpickerdemo/MainActivity.java) 
 for more context.
 
