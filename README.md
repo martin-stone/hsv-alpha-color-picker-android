@@ -154,7 +154,7 @@ for a fuller example.
 
 ### XML View Attributes
 
-The custom attributes above should be prefixed with the namespace used for *res-auto*, just like
+The custom attributes below should be prefixed with the namespace used for *res-auto*, just like
 the preference attributes. See the [view demo source](demo_app/src/main/res/layout/view_demo.xml)
 for an example.
 
