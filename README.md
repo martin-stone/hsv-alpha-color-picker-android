@@ -31,10 +31,16 @@ Add the library dependency to your app module's *build.gradle*:
 
 ```groovy
     dependencies {
-        compile 'com.rarepebble:colorpicker:3.0.1'
+        implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:3.0.1'
     }
 ```
-Add *jcenter()* to your repository list if it isn't there already.
+Add [JitPack](https://github.com/jitpack/jitpack.io#readme) to your repository list if it isn't there already:
+
+```groovy
+repositories {
+    maven { url "https://jitpack.io" }
+}
+```
 
 If using AndroidX, set [android.enableJetifier=true](https://developer.android.com/jetpack/androidx/migrate#migrate_an_existing_project_using_android_studio)
 in your gradle.properties.
