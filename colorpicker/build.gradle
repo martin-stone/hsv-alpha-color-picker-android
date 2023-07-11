@@ -18,7 +18,7 @@ android {
 }
 
 dependencies {
-    api 'com.android.support:support-v4:28.0.0'
-    api 'com.android.support:appcompat-v7:28.0.0'
-    api 'com.android.support:preference-v7:28.0.0'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
+    api 'androidx.appcompat:appcompat:1.0.0'
+    api 'androidx.preference:preference:1.0.0'
 }

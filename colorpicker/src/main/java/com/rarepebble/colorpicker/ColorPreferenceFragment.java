@@ -1,8 +1,8 @@
 package com.rarepebble.colorpicker;
 
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.preference.PreferenceDialogFragmentCompat;
+import androidx.appcompat.app.AlertDialog;
+import androidx.preference.PreferenceDialogFragmentCompat;
 
 public class ColorPreferenceFragment extends PreferenceDialogFragmentCompat {
 
