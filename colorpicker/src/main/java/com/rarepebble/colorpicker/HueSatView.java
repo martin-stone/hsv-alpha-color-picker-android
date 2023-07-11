@@ -61,15 +61,6 @@ public class HueSatView extends SquareView implements ColorObserver {
 		if (bitmap == null) {
 			bitmap = makeBitmap(optimalBitmapSize());
 		}
-
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB) {
-			// Need clipPath() and setLayerType()...
-			throw new UnsupportedOperationException("Android API 10 and below is not supported.");
-		}
-		else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-			// clipPath() is only supported on a software layer.
-			setLayerType(LAYER_TYPE_SOFTWARE, null);
-		}
 	}
 
 	private int optimalBitmapSize() {

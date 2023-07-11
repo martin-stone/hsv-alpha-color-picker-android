@@ -3,7 +3,7 @@ apply plugin: 'com.android.library'
 android {
     compileSdkVersion 33
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 18
         targetSdkVersion 33
     }
     buildTypes {
@@ -18,7 +18,6 @@ android {
 }
 
 dependencies {
-    api 'androidx.legacy:legacy-support-v4:1.0.0'
-    api 'androidx.appcompat:appcompat:1.0.0'
-    api 'androidx.preference:preference:1.0.0'
+    api 'androidx.appcompat:appcompat:1.6.1'
+    api 'androidx.preference:preference:1.2.0'
 }

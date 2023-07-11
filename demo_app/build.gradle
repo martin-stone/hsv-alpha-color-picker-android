@@ -4,7 +4,7 @@ android {
     compileSdkVersion 33
     defaultConfig {
         applicationId 'com.rarepebble.colorpickerdemo'
-        minSdkVersion 14
+        minSdkVersion 18
         targetSdkVersion 33
         versionCode 30001
         versionName '3.0.1'
@@ -21,9 +21,8 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    implementation 'androidx.preference:preference:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.preference:preference:1.2.0'
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':colorpicker')
 }

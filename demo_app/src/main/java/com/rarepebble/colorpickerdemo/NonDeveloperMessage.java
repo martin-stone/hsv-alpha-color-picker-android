@@ -2,7 +2,6 @@ package com.rarepebble.colorpickerdemo;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Build;
 import android.provider.Settings;
 import android.text.Html;
 import android.text.Spanned;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 /**
  * This is only here for the Play Store demo.
- *
  * To avoid confused reviews by non-developers, we'll show an explanatory message on phones that
  * don't have developer mode enabled.
  */
@@ -24,18 +22,11 @@ public class NonDeveloperMessage {
 	}
 
 	private static boolean userIsDeveloper(Context context) {
-		if (BuildConfig.DEBUG || Build.VERSION.SDK_INT < 17) {
-			// Running a debug build, or API not supported: we'll assume user is a developer.
-			return true;
-		}
-		else {
-			// Running a release APK on SKK 17+. Check developer mode:
-			int developerModeEnabled = Settings.Secure.getInt(
-					context.getContentResolver(),
-					Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
-					0);
-			return developerModeEnabled != 0;
-		}
+		int developerModeEnabled = Settings.Secure.getInt(
+				context.getContentResolver(),
+				Settings.Global.DEVELOPMENT_SETTINGS_ENABLED,
+				0);
+		return developerModeEnabled != 0;
 	}
 
 	private static void showMessage(Context context) {
