@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion 33
@@ -12,6 +13,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
     productFlavors {
     }
     namespace 'com.rarepebble.colorpicker'
@@ -20,4 +26,17 @@ android {
 dependencies {
     api 'androidx.appcompat:appcompat:1.6.1'
     api 'androidx.preference:preference:1.2.0'
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.rarepebble'
+                artifactId = 'colorpicker'
+                version = '3.1.0'
+            }
+        }
+    }
 }

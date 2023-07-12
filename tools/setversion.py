@@ -11,7 +11,7 @@ for file in files:
     new = old
     new = re.sub("versionCode \d+", "versionCode "+new_version_code, new)
     new = re.sub("versionName '[\d.]+'", "versionName '{}'".format(new_version_string), new)
-    new = re.sub("libraryVersion = '[\d.]+'", "libraryVersion = '{}'".format(new_version_string), new) 
+    new = re.sub("version = '[\d.]+'", "version = '{}'".format(new_version_string), new)
     new = re.sub("implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:[\d.]+'",
         "implementation 'com.github.martin-stone:hsv-alpha-color-picker-android:{}'".format(new_version_string), new)
 
